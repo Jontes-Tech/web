@@ -1,0 +1,124 @@
+.button,
+button {
+  display: inline-block;
+  text-decoration: none;
+  font-size: 18px;
+  width: 300px;
+  font-weight: 700;
+  line-height: 48px;
+  letter-spacing: 0.1px;
+  white-space: wrap;
+  border-radius: 8px;
+  cursor: pointer;
+  color: #fff8f1;
+  background-color: #22333b;
+  box-shadow: 0 5px 0 #141e23;
+}
+.button:focus,
+button:active {
+  outline: 10px auto -webkit-focus-ring-color;
+}
+.button:hover,
+button:hover {
+  color: #eae0d5;
+  border-color: #888;
+  outline: 0;
+  filter: brightness(90%);
+}
+.button:active,
+button:active {
+  box-shadow: none;
+  transform: translateY(5px);
+}
+.container {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  text-align: center;
+  margin: 0 auto;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+@media (min-width: 400px) {
+  .container {
+    width: 85%;
+    padding: 0;
+  }
+}
+@media (min-width: 550px) {
+  .container {
+    width: 80%;
+  }
+  .column {
+    margin-left: 0;
+  }
+  .column:first-child {
+    margin-left: 0;
+  }
+}
+html {
+  font-size: 100%;
+  color-scheme: dark;
+}
+body {
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  font-family: "Open Sans", HelveticaNeue, "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+}
+h1 {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-weight: 800;
+}
+h1 {
+  font-size: 24px;
+  line-height: 64px;
+  letter-spacing: 0;
+}
+@media (min-width: 550px) {
+  h1 {
+    font-size: 48px;
+    line-height: 96px;
+  }
+}
+p {
+  margin-top: 0;
+}
+code {
+  padding: 0.2rem 0.5rem;
+  margin: 0 0.2rem;
+  font-size: 90%;
+  white-space: nowrap;
+  background: #f1f1f1;
+  border: 1px solid #e1e1e1;
+  border-radius: 4px;
+}
+.button,
+button {
+  margin-bottom: 1rem;
+}
+p {
+  margin-bottom: 2.5rem;
+}
+.avatar {
+  width: 128px;
+  height: 128px;
+  object-fit: cover;
+  background-position: center;
+  border-radius: 50%;
+}
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0%;
+  height: 100px;
+  width: 100%;
+  overflow: hidden;
+}
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}

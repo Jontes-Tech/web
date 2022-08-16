@@ -1,0 +1,14 @@
+{
+  "app_id": "61482985177747456",
+  "config": {
+    "routing": {
+      "default_route": "/404.html"
+    },
+    "redirects": [
+        {
+            "pattern": "^/git$",
+            "destination": "https://github.com/Jontes-Tech"
+        }
+    ]
+  }
+}

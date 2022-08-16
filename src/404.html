@@ -1,0 +1,48 @@
+<!-- Never gonna give the HTTP status code 404 up -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whoops, 404</title>
+    <script>
+        // Play the luc sound in function lucsound()
+        times_played = 0;
+        function playLucSound() {
+            document.getElementById("img").src = "https://luc.gay/shrug_pink.5f4e3c3e.png";
+            const body = document.getElementById("body")
+            if ( times_played === 0 ) {
+                body.innerHTML += "<h2>Exactly, Luc doesn't know.</h2>"
+            }
+            else if ( times_played > 0 && times_played < 5 ) {
+                body.innerHTML += "<h2>Luc still doesn't know.</h2>"
+            }
+            else if ( times_played > 100) {
+                // Dude this is supposed to be a easter egg, don't destory the fun of it.
+                body.innerHTML += "<h2>Luc is tired of this.</h2>"
+            }
+            else {
+                body.innerHTML += "<h2>Luc is not sure.</h2>"
+            }
+            var audio = new Audio('https://file-examples.com/storage/fe2ef7477862f581f9ce264/2017/11/file_example_MP3_700KB.mp3');
+            audio.play();
+            times_played += 1;
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            background-color: #333;
+            color: #fff;
+        }
+    </style>
+</head>
+<body id="body">
+    <h1>Whoops, 404!</h1>
+    <h2>Buddy, the url you tried to reach does not exist. Either you suck at spelling, or I made a mistake. I bet ya Luc doesn't know either, actually let's ask him. "Luc, what went wrong?" Please click the pictue of Luc.</h2>
+    <img id="img" onclick="playLucSound()" src="https://assets.luc.directory/500x500.4fd046eb.webp">
+</body>
+</html>
