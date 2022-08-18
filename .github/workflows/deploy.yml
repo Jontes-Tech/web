@@ -12,11 +12,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Move over directory
-        run: cp -r ./src ./dist
+        run: cp -r ./404.html ./a ./css ./images ./index.html ./jmb-tos.html ./dist
       - name: Edgeserver Upload
         uses: lvkdotsh/edgeserver-action@master
         with:
           app_id: "83098726725324800"
           server: https://api.edgeserver.io
           token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: dist
+          directory: .
