@@ -4,16 +4,19 @@ on:
   push:
     branches:
       - "master"
+
 jobs:
   zip-files:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Move over directory
+        run: cp -r ./src ./dist
       - name: Edgeserver Upload
         uses: lvkdotsh/edgeserver-action@master
         with:
           app_id: "83098726725324800"
           server: https://api.edgeserver.io
           token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: src
+          directory: dist
