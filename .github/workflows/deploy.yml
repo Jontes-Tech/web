@@ -1,23 +1,19 @@
-
 name: Deploy to Edgeserver.io
 
 on:
   push:
     branches:
-      - "master"
-
+      - "main"
 jobs:
   zip-files:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Move over directory
-        run: cp -r ./src ./dist
       - name: Edgeserver Upload
-        uses: lvkdotsh/edgeserver-action@master
+        uses: lvkdotsh/edgeserver-action@v0.0.34
         with:
-          app_id: "83157749453557760"
+          app_id: "61482985177747456"
           server: https://api.edgeserver.io
           token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: dist
+          directory: .
