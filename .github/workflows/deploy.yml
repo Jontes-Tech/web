@@ -12,7 +12,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Move over directory
-        run: cp -r ./404.html ./a ./css ./images ./index.html ./jmb-tos.html ./dist
+        run: cp -r ./404.html ./a ./css ./images ./index.html ./jmb-tos.html .
       - name: Edgeserver Upload
         uses: lvkdotsh/edgeserver-action@master
         with:
