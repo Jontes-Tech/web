@@ -10,10 +10,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Move files
+        run: mkdir publish; cp src publish
       - name: Edgeserver Upload
         uses: lvkdotsh/edgeserver-action@master
         with:
           app_id: "83098726725324800"
           server: https://api.edgeserver.io
           token: ${{ secrets.SIGNAL_TOKEN }}
-          directory: src
+          directory: publish
