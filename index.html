@@ -1,29 +1,140 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title>Jonte's Page</title>
-        <meta name="description" content="Find me online!">
-        <meta name="author" content="Jonte">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="css/landing.css">
-        <link rel="icon" type="image/png" href="images/avatar.webp">
-    </head>
-    <body>
-        <div class="container">
-            <div class="row">
-                <div class="column" style="margin-top: 10%">
-                    <img src="images/avatar.webp" class="avatar" srcset="images/avatar@2x.webp 2x" alt="Jonte's Face.">
-                    <h1>Jontes.Page</h1>
-                    <p>Hi, hello there, I'm Jonte. I'm a kiddo who believes the Free Libre and Opensource software philosophy.</p>
-                    <a class="button" href="https://blog.jontes.page">Blog</a>
-                    <a class="button" href="https://github.com/Jontes-Tech">Github</a>
-                    <a class="button" href="https://twitter.com/JontesTweets">Twitter</a>
-                    <a class="button" href="https://searchofchoice.jontes.page">SearchOfChoice</a>
-                    <a class="button" href="/pgp/">PGP</a>
-                    <a class="button" href="/additional_links.html">Additional links</a>
-                </div>
-            </div>
+<html lang=en>
+<head>
+<meta charset=utf-8>
+<title>Jonte's Page
+</title>
+<meta content="I'm a kiddo who believes the Free Libre and Opensource software philosophy." name=description>
+<meta content="Jonte" name=author>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<link href="images/avatar.min.webp" rel=icon type=image/ico>
+<style>
+    .button {
+        display: inline-block;
+        text-decoration: none;
+        font-size: 18px;
+        width: 300px;
+        margin-bottom: 1rem;
+        font-weight: 700;
+        line-height: 48px;
+        letter-spacing: .1px;
+        white-space: wrap;
+        border-radius: 8px;
+        cursor: pointer;
+        color: #fff8f1;
+        background-color: #ffa348;
+        box-shadow: 0 5px 0 #ff7800
+    }
+
+    .button:active {
+        box-shadow: none;
+        transform: translateY(5px)
+    }
+
+    .container {
+        position: relative;
+        width: 100%;
+        max-width: 600px;
+        text-align: center;
+        margin: 0 auto;
+        padding: 0 20px;
+        box-sizing: border-box
+    }
+
+    @media(min-width:400px) {
+        .container {
+            width: 85%;
+            padding: 0
+        }
+    }
+
+    @media(min-width:550px) {
+        .container {
+            width: 80%
+        }
+
+        .column {
+            margin-left: 0
+        }
+
+        .column:first-child {
+            margin-left: 0
+        }
+    }
+
+    html {
+        font-size: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color-scheme: dark;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+
+    body {
+        font-size: 18px;
+        line-height: 24px;
+        font-weight: 400;
+        background-color: #241f31;
+        font-family: "Open Sans", HelveticaNeue, "Helvetica Neue", Helvetica, Arial, sans-serif
+    }
+
+    h1 {
+        margin-top: 0;
+        margin-bottom: 8px;
+        font-weight: 800
+    }
+
+    @media(min-width:550px) {
+        h1 {
+            font-size: 48px;
+            line-height: 80px
+        }
+    }
+
+    p {
+        margin-bottom: 2.5rem;
+        margin-top: 0
+    }
+
+    .avatar {
+        width: 128px;
+        height: 128px;
+        object-fit: cover;
+        background-position: center
+    }
+
+    .grid {
+        display: grid;
+        place-content: center
+    }
+</style>
+</head>
+<body>
+<div class=grid>
+    <div class=container>
+        <div class=column style=transform-origin:center;margin-top:0><img alt=Image of Jonte class=avatar
+                src="images/avatar.min.webp">
+            <h1>Jonte's Page
+            </h1>
+            <p>Hi, hello there, I'm Jonte. I'm a kiddo who believes the Free Libre and Opensource software philosophy.
+            </p><a class="button" href="https://blog.jontes.page
+">Blog
+            </a><a class="button" href="https://github.com/Jontes-Tech
+">Github
+            </a><a class="button" href="https://twitter.com/JontesTweets
+">Twitter
+            </a><a class="button" href="https://searchofchoice.jontes.page
+">SearchOfChoice
+            </a><a class="button" href="/pgp
+">PGP
+            </a><a class="button" href="/additional_links
+">Additional links
+            </a>
         </div>
-    </body>
-</html>
+    </div>
+</div>
+</body>
