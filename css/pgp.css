@@ -12,6 +12,5 @@ h2 {
 }
 code {
     background-color: rgb(6, 5, 6);
-    padding: 1em;
-    border-radius: 1em;
+    padding: 0.25em;
 }
