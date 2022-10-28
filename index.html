@@ -65,7 +65,7 @@
     <p>(c) jonte 2022</p>
   </footer>
   <script defer>
-    fetch('http://localhost:3000/lastlogin')
+    fetch('https://api.jontes.page/lastlogin')
       .then(response => {
         if (!response.ok) {
           throw new Error("HTTP error " + response.status);
