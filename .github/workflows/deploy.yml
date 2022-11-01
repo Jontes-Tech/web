@@ -11,9 +11,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Edgeserver Upload
-        uses: lvkdotsh/edgeserver-action@v0.0.34
+        uses: v3xlabs/edgeserver-action@v0.0.34
         with:
           app_id: "110329551392870400"
           server: https://api.edgeserver.io
-          token: ${{ secrets.SIGNAL_TOKEN }}
+          token: ${{ secrets.EDGESERVER_TOKEN }}
           directory: src
