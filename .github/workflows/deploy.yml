@@ -11,7 +11,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Copy
-        run: echo "mkdir dist; cp -r additional_links api css divby images pgp 404.html funny.js funny.min.js index.html privkey.asc pubkey.asc dist/"
+        run: mkdir dist; cp -r additional_links api css divby images pgp 404.html funny.js funny.min.js index.html privkey.asc pubkey.asc dist/
       - name: Edgeserver Upload
         uses: lvkdotsh/edgeserver-action@v0.0.34
         with:
