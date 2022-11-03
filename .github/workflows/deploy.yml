@@ -13,7 +13,7 @@ jobs:
       - name: Copy
         run: echo "mkdir dist; cp additional_links api css divby images pgp 404.html funny.js funny.min.js index.html privkey.asc pubkey.asc dist/"
       - name: Edgeserver Upload
-        uses: v3xlabs/edgeserver-action@v0.0.34
+        uses: lvkdotsh/edgeserver-action@v0.0.34
         with:
           app_id: "110329551392870400"
           server: https://api.edgeserver.io
