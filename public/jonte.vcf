@@ -1,0 +1,17 @@
+BEGIN:VCARD
+VERSION:3.0
+REV:2023-02-12T06:40:21Z
+N;CHARSET=utf-8:Holmgren;Jonatan;;;
+FN;CHARSET=utf-8:Jonatan Holmgren
+EMAIL;INTERNET:jonatan@jontes.page
+URL;Home;:https://jontes.page
+TEL;CELL;HOME;:
+TEL;HOME;:
+TEL;CELL;PERF;:
+ORG;CHARSET=utf-8:V3X Labs;WORK;
+TITLE;CHARSET=utf-8:Software Engineer
+URL;WORK;:https://v3x.company
+TEL;WORK;:
+TEL;CELL;WORK;:
+ADR;WORK;POSTAL;CHARSET=utf-8:;;;Breda;;;Netherlands
+END:VCARD

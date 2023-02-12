@@ -1,0 +1,16 @@
+---
+interface Props {
+  company: string;
+  date: string;
+  role: string;
+  svg?: boolean;
+}
+const { company, date, role, svg } = Astro.props;
+---
+<div class="shadow-xl hover:shadow-2xl w-72 max-w-full flex bg-stone-700 p-4 rounded-lg hover:bg-violet-900 transition-all hover:translate-y-[-2px] hover:scale-105">
+  <img style="border-radius: 100%;" class="bg-stone-50 rounded-lg p-1 w-16 h-16 object-cover object-center mr-4 overflow-hidden" src={`/images/xp/${company}.${svg?'svg':'webp'}`} alt={company+" Logo"}>
+  <div>
+    <h2 class="text-lg font-bold text-gray-100">{role}</h2>
+    <p class="text-gray-400">{date}<br>{company}</p>
+  </div>
+</div>

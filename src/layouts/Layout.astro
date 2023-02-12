@@ -1,0 +1,69 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  og: string;
+}
+
+const { title, description, og } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title} | Jonte's Page</title>
+    <meta name="description" content={description} />
+    <!-- Webp Favicon -->
+    <link
+      rel="icon"
+      type="image/webp"
+      href="/images/avatar.webp"
+    />
+    <!-- OG image -->
+    <meta property="og:image" content={"/images/ogp/"+og+".png"} />
+  </head>
+  <body class="bg-zinc-900">
+    <nav class="border-stone-200 px-2 sm:px-4 py-2.5 rounded bg-zinc-800">
+      <div
+        class="container flex flex-wrap items-center justify-between mx-auto"
+      >
+        <span
+          class="self-center text-xl font-semibold whitespace-nowrap text-white mr-4"
+          >Jonte's Page</span
+        >
+        <div class="w-auto" id="navbar-default">
+          <ul
+            class="flex p-4 rounded-lg flex-row space-x-8 mt-0 text-sm font-medium border-0 bg-stone-900 border-stone-700"
+          >
+            <li>
+              <a
+                href="/"
+                class="block px-2 text-violet-400 rounded md:p-0"
+                aria-current="page">Home</a
+              >
+            </li>
+            <li>
+              <a
+                href="/#projects"
+                class="block px-2 text-violet-400 rounded md:p-0"
+                aria-current="page">Projects</a
+              >
+            </li>
+            <li>
+              <a
+                href="/#experience"
+                class="block px-2 text-violet-400 rounded md:p-0"
+                aria-current="page">Experience</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <slot />
+  </body>
+</html>
