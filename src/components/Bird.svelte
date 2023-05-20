@@ -18,7 +18,7 @@
 
   const reload = () => {
     const img = document.querySelector("img");
-    img.src = "https://birdbox.jontes.page?" + new Date().getTime();
+    img.src = "https://birdbox.jontes.page:4443?" + new Date().getTime();
   };
 </script>
 
@@ -33,15 +33,15 @@
               reload();
             }, 1000);
           }}
-          src="https://birdbox.jontes.page"
+          src="https://birdbox.jontes.page:4443"
           alt={"Birdbox Camera: " +
             (bird ? `There lives a ${bird} in the box!` : "No bird in the box")}
-          class="rounded-lg shadow-lg min-h-[768px] min-w-[1024px] bg-stone-700"
+          class="rounded-lg shadow-lg max-h-[calc(100vh-250px)] max-w-full bg-stone-700"
         />
       </div>
       <div class="text-center">
         <h2 class="text-2xl font-semibold text-white mb-2">
-          Species: {bird || "Noone lives in it"}
+          Species: {bird || "No one lives in it"}
         </h2>
         <p class="text-gray-400">
           Currently {currentTime}, Image taken {diff} seconds ago.
