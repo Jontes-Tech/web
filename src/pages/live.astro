@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Bird from "../components/Bird.svelte";
+
+let bird = "Blue tit";
+---
+
+<Layout
+  title="Birdbox"
+  og="birdbox"
+  description={"Birdbox Camera: "+(bird?`There lives a ${bird} in the box!`:'No bird in the box')}
+>
+  <Bird client:load bird={bird}/>
+</Layout>
