@@ -45,7 +45,7 @@
         </h2>
         <p class="text-gray-400">
           Currently {currentTime}, Image taken {diff} seconds ago.
-          <button on:click={reload} class="hover:underline">Reload</button>
+          <button on:click={reload} class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Reload</button>
         </p>
       </div>
     </div>
