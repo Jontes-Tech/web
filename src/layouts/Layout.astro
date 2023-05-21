@@ -1,4 +1,6 @@
 ---
+import type { stop_propagation } from "svelte/internal";
+
 export interface Props {
   title: string;
   description: string;
@@ -17,15 +19,25 @@ const { title, description, og } = Astro.props;
     <title>{title} | Jonte's Page</title>
     <meta name="description" content={description} />
     <!-- Webp Favicon -->
-    <link
-      rel="icon"
-      type="image/webp"
-      href="/images/avatar.webp"
-    />
+    <link rel="icon" type="image/webp" href="/images/avatar.webp" />
     <!-- OG image -->
-    <meta property="og:image" content={"/images/ogp/"+og+".png"} />
+    <meta property="og:image" content={"/images/ogp/" + og + ".png"} />
   </head>
   <body class="bg-zinc-900">
+    <a
+      id="sticky-banner"
+      tabindex="-1"
+      href="/live"
+      class="z-50 flex justify-between w-full p-4 border-b bg-neutral-900 hover:bg-neutral-800 transition-all border-gray-600"
+    >
+      <div class="flex items-center mx-auto">
+        <p class="flex items-center text-sm font-normal text-gray-400">
+          <span
+            >🐦🎥 Live Birdbox Adventure! Watch Nature Unfold in Real-Time! 🌳🌼</span
+          >
+        </p>
+      </div>
+    </a>
     <nav class="border-stone-200 px-2 sm:px-4 py-2.5 rounded bg-zinc-800">
       <div
         class="container flex flex-wrap items-center justify-between mx-auto"
@@ -45,25 +57,12 @@ const { title, description, og } = Astro.props;
                 aria-current="page">Home</a
               >
             </li>
-            <li>
-              <a
-                href="/#projects"
-                class="block px-2 text-violet-400 rounded md:p-0"
-                aria-current="page">Projects</a
-              >
-            </li>
-            <li>
-              <a
-                href="/#experience"
-                class="block px-2 text-violet-400 rounded md:p-0"
-                aria-current="page">Experience</a
-              >
-            </li>
           </ul>
         </div>
       </div>
     </nav>
-
-    <slot />
+    <div>
+      <slot />
+    </div>
   </body>
 </html>
