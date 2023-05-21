@@ -49,7 +49,9 @@
         </p>
       </div>
     </div>
-    <div class="p-6 bg-stone-800 rounded-lg shadow-lg m-4" id="commento"></div>
+    <div class="p-6 bg-stone-300 rounded-lg shadow-lg m-8">
+      <div id="commento"></div>
+    </div>
   </div>
   <script defer src="https://commento.jontes.page/js/commento.js"></script>
 </div>
