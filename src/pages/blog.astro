@@ -1,0 +1,16 @@
+---
+let posts = await Astro.glob("./blog/**/*.md");
+posts = posts.sort((a, b) => new Date(b.frontmatter.date).getTime() - new Date(a.frontmatter.date).getTime()).filter((post) => !post.frontmatter.draft);
+import Layout from "../layouts/Layout.astro";
+import BlogList from '../components/BlogList.svelte'
+---
+
+<Layout
+  title="Blog"
+  description="Read my awesome articles on everything I know"
+  og="blog"
+>
+<main class="flex justify-center">
+  <BlogList posts={posts} client:load/>
+</main>
+</Layout>
