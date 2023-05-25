@@ -6,7 +6,6 @@
   let diff = 0;
 
   onMount(() => {
-    // Update the time every second
     setInterval(() => {
       const date = new Date();
       currentTime = date.toLocaleTimeString("sv-SE", {
@@ -14,6 +13,13 @@
       });
       diff = Math.floor((date - fetchedUnix) / 1000);
     }, 1000);
+
+    // We want to reload the image every 15 seconds
+    setInterval(() => {
+      if (!document.hidden){
+        reload();
+      }
+    }, 15_000);
   });
 
   const reload = () => {
