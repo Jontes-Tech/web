@@ -1,4 +1,5 @@
 <script>
+  import { onMount } from "svelte";
   export let posts;
   let displayedPosts = [];
   $: displayedPosts = posts.slice((page - 1) * 6, page * 6);
