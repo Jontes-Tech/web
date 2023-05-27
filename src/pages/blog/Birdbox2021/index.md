@@ -14,7 +14,7 @@ tags: [
 ---
 
 ## OUTDATED POST
-Latest Birdbox article is [here](../birdbox2022)
+Latest Birdbox article is [here](./Birdbox2022)
 
 [Watch YouTube Video](https://www.youtube.com/watch?v=8ucla9r3Ufs)
 

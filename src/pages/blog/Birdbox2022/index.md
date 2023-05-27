@@ -18,15 +18,13 @@ Yesteryear I tried making a Livestreaming Birdbox, and that was... A total failu
 
 ## Some pics from the box!
 First sighting of eggs!
-![A picture from the Reolink camera in the birdbox showing 8 eggs.](8eggs.webp)
-A video of the kiddos! (image in slightly lower resolution because of cellular data constraints)
-{{< video loop="true" src="the-birds-epic-adventure" >}}
+![A picture from the Reolink camera in the birdbox showing 8 eggs.](/blog/Birdbox2022/8eggs.webp)
 
 ### Building Process:
-The building process can be read [here](../planning-for-birdbox2022).
+The building process can be read [here](./planning-for-birdbox2022).
 
 ### How about the old Birdbox?
-Learn about Birdbox 2021 [here](../birdbox2021)
+Learn about Birdbox 2021 [here](./birdbox2021)
 
 ### Conclusion
 This website will be updated once I have tested the setup more.

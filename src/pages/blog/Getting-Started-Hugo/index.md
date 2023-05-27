@@ -6,7 +6,7 @@ date: "2022-02-06"
 description: "Getting started with HUGO"
 ---
 Click "Quick Start" on the image bellow for installation instructions  
-[![GoHugo.io Website](GoHugo.IO.png)](https://gohugo.io/getting-started/quick-start/)
+[![GoHugo.io Website](/blog/Getting-Started-Hugo/GoHugo.IO.png)](https://gohugo.io/getting-started/quick-start/)
 Then open a terminal and run ```hugo new site sitename```
 This will create a new folder with Hugo. 
 
