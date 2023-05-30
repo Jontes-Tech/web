@@ -5,7 +5,7 @@ title: "Birdbox 2023"
 date: "2023-05-21"
 draft: true
 description: "Yet another, barely better birdbox, now with 24/7 public live streaming (kinda) "
-cover: "https://birdbox.jontes.page:4443"
+cover: "thumb.jpg"
 categories: [
     "Birdbox"
 ]
@@ -15,9 +15,9 @@ tags: [
 ---
 
 ## Stream's now public
-You see that image up there? That's live, well, kinda. When your web browser queried my api that runs on my raspberry pi (I'll get into more depth later) and displayed the image in an `<img>` tag. Cool, right? It's something I never would've thougth of 2 years ago when I started this project! 
+See this pic? !["A picture of the birdbox"](https://birdbox.jontes.page:4443/capture/birdbox)? If that image loaded, your browser contacted my webserver at home and took that photo directly from my birdbox. Cool, right? At least I think so.
 
-[Anyways, here's the livestream](https://jontes.page/live)
+If you want to, feel free to watch this YouTube video I made about the topic: [youtu.be/VMYSum1HH5c](https://www.youtube.com/watch?v=VMYSum1HH5c)
 
 So how'd we build this fella? Well, at first I tried connecting a Raspberry Pi Zero with a noir camera to an external WiFi antenna in a plastic bag and calling it a day, but the Zero wasn't cutting it. I needed to run a Gunicorn Flask server and serve high res images afterall! I wrote this simple python code, and this is what I run on the pi to this day.
 ```python
@@ -88,3 +88,5 @@ server {
     }
 }
 ```
+
+Anyways, the software aside this was a rather cool projects. Thanks for checking it out, and stay creative!
