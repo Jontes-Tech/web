@@ -1,0 +1,10 @@
+{
+    "redirects": [
+      {
+        "source": "/kpbird",
+        "destination": "https://jontes.page/live?utm_source=kp&utm_medium=kp&utm_campaign=klotter",
+        "permanent": true
+      }
+    ]
+  }
+  
