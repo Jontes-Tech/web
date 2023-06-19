@@ -1,5 +1,9 @@
 lockfileVersion: '6.0'
 
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
 dependencies:
   '@astrojs/sitemap':
     specifier: ^1.0.1
@@ -10,6 +14,9 @@ dependencies:
   '@astrojs/tailwind':
     specifier: ^3.0.1
     version: 3.0.1(astro@2.5.0)(tailwindcss@3.2.4)
+  '@neodrag/svelte':
+    specifier: ^2.0.3
+    version: 2.0.3
   astro:
     specifier: ^2.5.0
     version: 2.5.0
@@ -634,6 +641,10 @@ packages:
 
   /@ljharb/has-package-exports-patterns@0.0.2:
     resolution: {integrity: sha512-4/RWEeXDO6bocPONheFe6gX/oQdP/bEpv0oL4HqjPP5DCenBSt0mHgahppY49N0CpsaqffdwPq+TlX9CYOq2Dw==}
+    dev: false
+
+  /@neodrag/svelte@2.0.3:
+    resolution: {integrity: sha512-/7k4Byv6guBs6NpfzOnqOep8PM3HjhPg1rRPNsJsGNGDXSJNB+tn9NAi/vTXJBos3vN9XPlbnr3g/lNKGfg+Jg==}
     dev: false
 
   /@nodelib/fs.scandir@2.1.5:
