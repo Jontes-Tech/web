@@ -65,6 +65,17 @@
   export function handleImageUpload(event: Event): void {
     const target = event.target as EventTargetWithFiles;
     const file = target.files[0];
+    // Restrict to 1.8MB
+    if (file.size > 1_800_000) {
+      alert("File is too big, we only accept files up to 1.8MB");
+      // Reset the input
+      const input = document.getElementById(
+        "wallpaperselect"
+      ) as HTMLInputElement;
+      if (!input) return;
+      input.value = "";
+      return;
+    }
     const reader = new FileReader();
 
     reader.onloadend = () => {
@@ -185,7 +196,11 @@
           {:else if application === "wallpaper"}
             <div>
               <p>Choose a new wallpaper</p>
-              <input type="file" on:change={handleImageUpload} />
+              <input
+                type="file"
+                id="wallpaperselect"
+                on:change={handleImageUpload}
+              />
             </div>
           {/if}
         </div>
@@ -193,13 +208,13 @@
     {/each}
   </div>
   {#if activities}
-    <div class="flex justify-center">
+    <div class="flex justify-center mb-2">
       <div
-        class="flex flex-row justify-center gap-x-2 text-white bg-neutral-800 p-1 rounded-xl shadow-md"
+        class="flex flex-row justify-center gap-x-2 text-white bg-dockbg p-1 rounded-xl shadow-md"
         in:slide={{ duration: 200 }}
       >
         <button
-          class="p-2 m-1 rounded hover:bg-stone-700"
+          class="p-2 m-1 rounded hover:bg-dockhover"
           on:click={() => {
             opened("bird");
           }}
