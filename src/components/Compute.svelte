@@ -15,11 +15,15 @@
     bird: {
       name: "Birdwatcher",
     },
+    wallpaper: {
+      name: "Wallpaper",
+    },
   });
-  let current = writable("bird");
-  let openapplications = writable<string[]>(["bird"]);
+  let current = writable("");
+  let openapplications = writable<string[]>([]);
   let formattedDate = "Mon 1 00:00 AM";
-  $: {
+
+  const refreshDate = () => {
     const date = new Date();
     formattedDate = date
       .toLocaleString("en-US", {
@@ -30,7 +34,11 @@
         hour12: true,
       })
       .replace(",", "");
-  }
+  };
+  refreshDate();
+  setInterval(() => {
+    refreshDate();
+  }, 60000);
   onMount(() => {
     const bg = document.getElementById("background");
     if (!bg) return;
@@ -50,6 +58,27 @@
       current.set(app);
     }
   };
+  interface EventTargetWithFiles extends EventTarget {
+    files: FileList;
+  }
+
+  export function handleImageUpload(event: Event): void {
+    const target = event.target as EventTargetWithFiles;
+    const file = target.files[0];
+    const reader = new FileReader();
+
+    reader.onloadend = () => {
+      if (!reader.result) return;
+      const base64String = reader.result.toString();
+      localStorage.setItem("background", base64String);
+      const bg = document.getElementById("background");
+      if (!bg) return;
+      bg.style.backgroundSize = "cover";
+      bg.style.backgroundImage = "url(" + base64String + ")";
+    };
+
+    reader.readAsDataURL(file);
+  }
 </script>
 
 <!-- We want a header with left, center and right text -->
@@ -75,14 +104,45 @@
     on:click={() => {
       activities = false;
     }}
+    on:contextmenu|preventDefault={(event) => {
+      // Draw a context menu at the mouse position
+      const x = event.clientX;
+      const y = event.clientY;
+
+      // Create an element
+      const context = document.getElementById("context");
+      if (!context) return;
+      context.style.left = x + "px";
+      context.style.top = y + "px";
+      context.classList.remove("hidden");
+      context.classList.add("fixed");
+    }}
+    on:click={() => {
+      const context = document.getElementById("context");
+      if (!context) return;
+      context.classList.add("hidden");
+      context.classList.remove("fixed");
+    }}
     class={"bg-stone-700 flex-grow overflow-hidden w-screen rounded-xl shadow-md transition-transform " +
       (activities ? "scale-75" : "")}
   >
+    <div class="hidden z-50" id="context">
+      <div class="flex flex-row p-2 rounded bg-stone-600 text-white">
+        <button
+          on:click={() => {
+            opened("wallpaper");
+          }}
+          class="hover:bg-stone-500 p-1 rounded">Change Background...</button
+        >
+      </div>
+    </div>
     <!-- Here is the part applications can be -->
     {#each $openapplications as application}
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <div
         class="w-fit"
+        on:click|stopPropagation
+        on:contextmenu|stopPropagation
         on:mousedown={() => {
           current.set(application);
         }}
@@ -103,15 +163,31 @@
               openapplications.set(
                 $openapplications.filter((a) => a !== application)
               );
-            }}>x</button
+            }}
+            ><svg
+              class="fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              height="1em"
+              viewBox="0 0 384 512"
+              ><path
+                d="M342.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L192 210.7 86.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L146.7 256 41.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L192 301.3 297.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L237.3 256 342.6 150.6z"
+              /></svg
+            ></button
           >
         </div>
         <div
           class="bg-neutral-800 text-white p-4 rounded-b-md min-h-[400px] min-w-[400px]"
         >
-          <p class="text-center">
-            <Bird bird="Blue tit" />
-          </p>
+          {#if application === "bird"}
+            <p class="text-center">
+              <Bird bird="Blue tit" />
+            </p>
+          {:else if application === "wallpaper"}
+            <div>
+              <p>Choose a new wallpaper</p>
+              <input type="file" on:change={handleImageUpload} />
+            </div>
+          {/if}
         </div>
       </div>
     {/each}

@@ -1,12 +1,13 @@
 <script>
   export let bird;
-  import { onMount } from "svelte";
+  import { onDestroy, onMount } from "svelte";
   let currentTime = "";
   let fetchedUnix = "";
   let diff = 0;
-
+  let timeInterval;
+  let refreshInterval;
   onMount(() => {
-    setInterval(() => {
+    timeInterval = setInterval(() => {
       const date = new Date();
       currentTime = date.toLocaleTimeString("sv-SE", {
         timeZone: "Europe/Stockholm",
@@ -15,11 +16,16 @@
     }, 1000);
 
     // We want to reload the image every 15 seconds
-    setInterval(() => {
-      if (!document.hidden){
+    refreshInterval = setInterval(() => {
+      if (!document.hidden) {
         reload();
       }
     }, 15_000);
+  });
+
+  onDestroy(() => {
+    clearInterval(timeInterval);
+    clearInterval(refreshInterval);
   });
 
   const reload = () => {
@@ -35,14 +41,14 @@
         <img
           on:load={() => (fetchedUnix = new Date())}
           on:error={() => {
-            setTimeout(function () {
+            setInterval(function () {
               reload();
             }, 1000);
           }}
           src="https://birdbox.jontes.page:4443"
           alt={"Birdbox Camera: " +
             (bird ? `There lives a ${bird} in the box!` : "No bird in the box")}
-          class="rounded-lg shadow-lg max-h-[calc(100vh-250px)] max-w-full bg-stone-700"
+          class="rounded-lg shadow-lg max-h-[calc(100vh-250px)] max-w-full bg-stone-700 text-white"
         />
       </div>
       <div class="text-center">
@@ -51,12 +57,16 @@
         </h2>
         <p class="text-gray-400">
           Currently {currentTime}, Image taken {diff} seconds ago.
-          <button on:click={reload} class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded">Reload</button>
+          <button
+            on:click={reload}
+            class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
+            >Reload</button
+          >
         </p>
       </div>
     </div>
     <div class="p-6 bg-stone-300 rounded-lg shadow-lg m-8">
-      <div id="commento"></div>
+      <div id="commento" />
     </div>
   </div>
   <script defer src="https://commento.jontes.page/js/commento.js"></script>
