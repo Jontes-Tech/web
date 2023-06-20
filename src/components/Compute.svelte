@@ -18,6 +18,9 @@
     wallpaper: {
       name: "Wallpaper",
     },
+    browser: {
+      name: "Browser",
+    },
   });
   let current = writable("");
   let openapplications = writable<string[]>([]);
@@ -90,6 +93,7 @@
 
     reader.readAsDataURL(file);
   }
+  let webbrowserURL = "";
 </script>
 
 <!-- We want a header with left, center and right text -->
@@ -202,6 +206,21 @@
                 on:change={handleImageUpload}
               />
             </div>
+          {:else if application === "browser"}
+            <input
+              placeholder="https://jontes.page"
+              class="bg-neutral-700 p-2 rounded-l-md"
+              id="webbrowserURL"
+              type="url"
+            /><button
+              class="rounded-r-md p-2 bg-violet-500"
+              on:click={() => {
+                const browse = document.getElementById("webbrowserURL");
+                // @ts-ignore
+                webbrowserURL = browse?.value;
+              }}>GO</button
+            >
+            <iframe class="w-96 h-96" src={webbrowserURL} title="Web Browser" />
           {/if}
         </div>
       </div>
@@ -230,6 +249,30 @@
           <p
             class={"h-2 " +
               ($openapplications.includes("bird") ? "" : "invisible")}
+          >
+            ·
+          </p></button
+        >
+        <button
+          class="p-2 m-1 rounded hover:bg-dockhover"
+          on:click={() => {
+            opened("browser");
+          }}
+          ><svg
+            class="h-12 stroke-white"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 420 420"
+            fill="none"
+          >
+            <path stroke-width="26" d="M209,15a195,195 0 1,0 2,0z" />
+            <path
+              stroke-width="18"
+              d="m210,15v390m195-195H15M59,90a260,260 0 0,0 302,0 m0,240 a260,260 0 0,0-302,0M195,20a250,250 0 0,0 0,382 m30,0 a250,250 0 0,0 0-382"
+            />
+          </svg>
+          <p
+            class={"h-2 " +
+              ($openapplications.includes("browser") ? "" : "invisible")}
           >
             ·
           </p></button
