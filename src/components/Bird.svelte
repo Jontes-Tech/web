@@ -71,7 +71,7 @@
     </p>
   {:else}
   <div class="flex flex-col">
-    <div class="relative">
+    <div class="relative mt-4">
       <img src={imageUrl} alt={"There lives a "+bird||"bird"+" in the box"} />
     
       <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 z-10">
