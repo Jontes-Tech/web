@@ -24,7 +24,7 @@ const { title, description, og } = Astro.props;
     <!-- OG image -->
     <meta property="og:image" content={"/images/ogp/" + og + ".png"} />
   </head>
-  <body class="bg-zinc-900">
+  <body class="bg-zinc-900 flex flex-col h-screen">
     <a
       id="sticky-banner"
       tabindex="-1"
@@ -62,7 +62,7 @@ const { title, description, og } = Astro.props;
         </div>
       </div>
     </nav>
-    <div>
+    <div class="flex-1">
       <slot />
     </div>
   </body>

@@ -1,73 +1,87 @@
-<script>
-  export let bird;
-  import { onDestroy, onMount } from "svelte";
-  let currentTime = "";
-  let fetchedUnix = "";
-  let diff = 0;
-  let timeInterval;
-  let refreshInterval;
-  onMount(() => {
-    timeInterval = setInterval(() => {
-      const date = new Date();
-      currentTime = date.toLocaleTimeString("sv-SE", {
-        timeZone: "Europe/Stockholm",
-      });
-      diff = Math.floor((date - fetchedUnix) / 1000);
-    }, 1000);
+<script lang="ts">
+  import { onMount, onDestroy } from "svelte";
+  export let bird:string
+  let imageUrl = "";
+  let isLoading = true;
+  let isError = false;
+  let rateLimited = false;
 
-    // We want to reload the image every 15 seconds
-    refreshInterval = setInterval(() => {
-      if (!document.hidden) {
-        reload();
+  async function fetchImage() {
+    if (document.hidden) return;
+    isError = false;
+    try {
+      const response = await fetch("https://birdbox.jontes.page:4443/");
+      if (response.status === 502) {
+        clearInterval(interval);
+        isError = true;
+        rateLimited = false;
+      } else if (response.status === 429) {
+        rateLimited = true;
       }
-    }, 15_000);
-  });
+      else {
+        imageUrl = URL.createObjectURL(await response.blob());
+        rateLimited = false;
+      }
+    } catch (error) {
+      clearInterval(interval);
+      console.error(error);
+      isError = true;
+      rateLimited = false;
+    }
+    isLoading = false;
+  }
 
+  let interval: NodeJS.Timeout;
+  onMount(() => {
+    clearInterval(interval);
+    fetchImage();
+    interval = setInterval(fetchImage, 2000);
+  });
   onDestroy(() => {
-    clearInterval(timeInterval);
-    clearInterval(refreshInterval);
+    clearInterval(interval);
   });
 
-  const reload = () => {
-    const img = document.querySelector("img");
-    img.src = "https://birdbox.jontes.page:4443?" + new Date().getTime();
-  };
-</script>
+  const time = new Date().toLocaleTimeString("sv-SE", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
-<div class="flex justify-center items-center">
-  <div>
-    <div class="p-6 bg-stone-800 rounded-lg shadow-lg m-4">
-      <div class="flex items-center justify-center mb-4">
-        <img
-          on:load={() => (fetchedUnix = new Date())}
-          on:error={() => {
-            setInterval(function () {
-              reload();
-            }, 1000);
-          }}
-          src="https://birdbox.jontes.page:4443"
-          alt={"Birdbox Camera: " +
-            (bird ? `There lives a ${bird} in the box!` : "No bird in the box")}
-          class="rounded-lg shadow-lg max-h-[calc(100vh-250px)] max-w-full bg-stone-700 text-white"
-        />
-      </div>
-      <div class="text-center">
-        <h2 class="text-2xl font-semibold text-white mb-2">
-          Species: {bird || "No one lives in it"}
-        </h2>
-        <p class="text-gray-400">
-          Currently {currentTime}, Image taken {diff} seconds ago.
-          <button
-            on:click={reload}
-            class="bg-teal-500 hover:bg-teal-700 text-white font-bold py-2 px-4 rounded"
-            >Reload</button
-          >
-        </p>
+  let liveVisitors = 0;
+
+  (async () => {
+    const response = await fetch("https://stats.jontes.page/api/stats/jontes.page/top-stats?period=realtime&filters={%22page%22:%22/live%22}");
+    if (!response.ok) return;
+    const json = await response.json();
+    liveVisitors = json.top_stats[0].value;
+  })();
+</script>
+<div class="flex items-center justify-center h-full text-white">
+  {#if rateLimited}
+  <p>Whoah, you're going too fast. We only allow 2 streams per internet connection. Sorry.</p>
+  {:else if isLoading}
+    <p class="text-4xl animate-spin">🐦</p>
+    <p class="loading">Loading...</p>
+  {:else if isError}
+    <p class="text-2xl">We're offline.
+    {#if new Date().getHours() >= 10 && new Date().getHours() <= 20}
+    We usually stream between 10AM and 8PM Swedish time, but that's sometimes life comes in the way, and sometimes powerbanks just don't want to charge properly. Refresh the page to see if we're back.
+    {:else}
+    We'll probably be back at 10AM Swedish time
+    {/if}
+    </p>
+  {:else}
+  <div class="flex flex-col">
+    <div class="relative">
+      <img src={imageUrl} alt={"There lives a "+bird||"bird"+" in the box"} />
+    
+      <div class="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white p-4 z-10">
+        <p class="text-lg">Birdbox in Umeå, refreshing every 2 seconds.</p>
+        <p class="text-lg">{time} Swedish Time. Streaming 10AM to 8PM</p>
       </div>
     </div>
-    <div class="p-6 bg-stone-300 rounded-lg shadow-lg m-8">
-      <div id="commento" />
-    </div>
+    <p>{liveVisitors} Current Visitors</p>
+    <div id="commento"></div>
   </div>
   <script defer src="https://commento.jontes.page/js/commento.js"></script>
+  {/if}
 </div>
