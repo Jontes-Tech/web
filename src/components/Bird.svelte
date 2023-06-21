@@ -80,7 +80,7 @@
       </div>
     </div>
     <p>{liveVisitors} Current Visitors</p>
-    <div id="commento"></div>
+    <div id="commento" class="max-w-[1024px]"/>
   </div>
   <script defer src="https://commento.jontes.page/js/commento.js"></script>
   {/if}
