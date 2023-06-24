@@ -66,9 +66,7 @@ const { title, description, og } = Astro.props;
       <slot />
     </div>
     <script>
-if (sessionStorage.getItem('stream-online')) {
-document.getElementById("bannertext").innerText = "Birdbox stream offline, probably online 10AM CET."
-} else {
+if (!sessionStorage.getItem('stream-online')) {
     try {
     const res = await fetch('https://birdbox.jontes.page:4443/health')
     if (res.status !== 200) {
@@ -84,6 +82,8 @@ document.getElementById("bannertext").innerText = "Birdbox stream offline, proba
        sessionStorage.setItem("stream-online", "false")
        }
 }
+else {
+document.getElementById("bannertext").innerText = sessionStorage.getItem('stream-online') === "true" ? "🐦🎥 Live Birdbox Adventure! Watch Nature Unfold in Real-Time! 🌳🌼" : "Birdbox stream offline, probably online 10AM CET."
  </script>
   </body>
 </html>
