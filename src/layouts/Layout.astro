@@ -67,7 +67,7 @@ const { title, description, og } = Astro.props;
     </div>
     <script>
 if (sessionStorage.getItem('stream-online')) {
-document.getElementById("bannertext").innerText = sessionStorage.getItem('stream-online')
+document.getElementById("bannertext").innerText = "Birdbox stream offline, probably online 10AM CET."
 } else {
     try {
     const res = await fetch('https://birdbox.jontes.page:4443/health')
