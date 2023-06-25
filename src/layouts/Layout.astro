@@ -14,7 +14,11 @@ const { title, description, og } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script defer data-domain="jontes.page" src="https://stats.jontes.page/js/script.js"></script>
+    <script
+      defer
+      data-domain="jontes.page"
+      src="https://stats.jontes.page/js/script.js"
+    ></script>
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Jonte's Page</title>
@@ -65,5 +69,21 @@ const { title, description, og } = Astro.props;
     <div class="flex-1">
       <slot />
     </div>
+    <script>
+      const bannertext = document.getElementById("bannertext");
+      let isStreaming = false;
+      try {
+        const response = await fetch("https://birdbox.jontes.page:4443/health");
+        if (response.status === 201) {
+          isStreaming = true;
+        }
+      } catch {
+        isStreaming = false;
+      }
+      if (!isStreaming) {
+        console.log("Birdbox is offline");
+        bannertext.innerText = "Birdbox is offline. Check back later!";
+      }
+    </script>
   </body>
 </html>

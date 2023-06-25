@@ -54,49 +54,40 @@ import Layout from "../layouts/Layout.astro";
       />
     </div>
   </section>
-<section id="contact">
-  <h2 class="text-stone-200 text-center p-4 text-4xl font-bold">
-    Contact <span class="text-yellow-400">Me</span>
-  </h2>
-  <div class="container mx-auto p-8 flex justify-center">
-    <div class="w-full max-w-sm bg-stone-800 rounded shadow-lg p-8">
-      <h1 class="flex text-2xl font-bold text-white mb-4">
-        Jonatan Holmgren <a href="/jonte.vcf" download="jonte.vcf">
-          <svg
-            class="h-4 m-2 fill-white"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 640 512"
-            ><path
-              d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
-            ></path></svg
-          ></a
-        >
-      </h1>
-      <p class="text-gray-400 mb-2">Software Engineer at V3X Labs</p>
-      <p class="text-gray-400 mb-2">
-        Email: jonatan [email symbol] jontes.page
-      </p>
-      <p class="text-gray-400 mb-2">
-        ENS: <a
-          class="hover:h underline"
-          href="https://app.ens.domains/name/jontes.eth">jontes.eth</a
-        >
-      </p>
-      <p class="text-gray-400 mb-2">
-        PGP: <a class="hover:h underline" href="/pgp"
-          >AA41 17DD 8AAD 167A 3EDF F42A 4610 8181 F32A A005</a
-        >
-      </p>
+  <section id="contact">
+    <h2 class="text-stone-200 text-center p-4 text-4xl font-bold">
+      Contact <span class="text-yellow-400">Me</span>
+    </h2>
+    <div class="container mx-auto p-8 flex justify-center">
+      <div class="w-full max-w-sm bg-stone-800 rounded shadow-lg p-8">
+        <h1 class="flex text-2xl font-bold text-white mb-4">
+          Jonatan Holmgren <a href="/jonte.vcf" download="jonte.vcf">
+            <svg
+              class="h-4 m-2 fill-white"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 640 512"
+              ><path
+                d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"
+              ></path></svg
+            ></a
+          >
+        </h1>
+        <p class="text-gray-400 mb-2">Software Engineer at V3X Labs</p>
+        <p class="text-gray-400 mb-2">
+          Email: jonatan [email symbol] jontes.page
+        </p>
+        <p class="text-gray-400 mb-2">
+          ENS: <a
+            class="hover:h underline"
+            href="https://app.ens.domains/name/jontes.eth">jontes.eth</a
+          >
+        </p>
+        <p class="text-gray-400 mb-2">
+          PGP: <a class="hover:h underline" href="/pgp"
+            >AA41 17DD 8AAD 167A 3EDF F42A 4610 8181 F32A A005</a
+          >
+        </p>
+      </div>
     </div>
-  </div>
-</section>
-<a href="/live/?utm_source=homepage&utm_medium=website&utm_campaign=bottomright" hidden id="birdbox-ad">
-<img src="/images/blue-tit.webp" class="h-96 lg:block hidden fixed bottom-0 right-0 scale-x-[-1]">
-<p class="fixed bottom-0 right-0 p-4 bg-neutral-800 text-white"><img src="/images/blue-tit.webp" class="h-8 lg:hidden inline-block ">Hi, The birdbox is live, click to watch</p>
-</a>
-<script>
-if (sessionStorage.getItem("stream-online") === "true") {
-  document.getElementById("birdbox-ad").hidden = false
-}
-</script>
+  </section>
 </Layout>
