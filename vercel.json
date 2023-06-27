@@ -2,8 +2,13 @@
     "redirects": [
       {
         "source": "/kpbird",
-        "destination": "https://jontes.page/live?utm_source=kp&utm_medium=kp&utm_campaign=klotter",
+        "destination": "https://jontes.page/Birdbox2023?utm_source=kp&utm_medium=kp&utm_campaign=klotter&normie=true",
         "permanent": true
+      },
+      {
+        "source": "/live",
+        "destination": "https://jontes.page/BirdBox2023",
+        "permanent": false
       }
     ]
   }

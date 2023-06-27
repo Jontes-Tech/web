@@ -32,13 +32,13 @@ const { title, description, og } = Astro.props;
     <a
       id="sticky-banner"
       tabindex="-1"
-      href="/live/?utm_source=homepage&utm_medium=website&utm_campaign=banner"
+      href="/Birdbox2023/?utm_source=homepage&utm_medium=website&utm_campaign=banner"
       class="z-50 flex justify-between w-full p-4 border-b bg-neutral-900 hover:bg-neutral-800 transition-all border-gray-600"
     >
       <div class="flex items-center mx-auto">
         <p class="flex items-center text-sm font-normal text-gray-400">
           <span id="bannertext"
-            >🐦🎥 Live Birdbox Adventure! Watch Nature Unfold in Real-Time! 🌳🌼</span
+            >Birdbox Stream Over, Birds Moved!</span
           >
         </p>
       </div>
@@ -69,21 +69,5 @@ const { title, description, og } = Astro.props;
     <div class="flex-1">
       <slot />
     </div>
-    <script>
-      const bannertext = document.getElementById("bannertext");
-      let isStreaming = false;
-      try {
-        const response = await fetch("https://birdbox.jontes.page:4443/health");
-        if (response.status === 201) {
-          isStreaming = true;
-        }
-      } catch {
-        isStreaming = false;
-      }
-      if (!isStreaming) {
-        console.log("Birdbox is offline");
-        bannertext.innerText = "Birdbox is offline. Check back later!";
-      }
-    </script>
   </body>
 </html>
