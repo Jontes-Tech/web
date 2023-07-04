@@ -3,55 +3,50 @@ import Layout from "../layouts/Layout.astro";
 const {
   frontmatter: { title, description, cover, date },
 } = Astro.props;
+const { url } = Astro.props;
+import Comment from "../components/Comment.svelte";
 ---
 
 <Layout title={title} description={description} og={cover}>
   <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-neutral-900">
-    <div class="flex justify-between px-4 mx-auto max-w-screen-xl">
-      <article
-        class="mx-auto w-full max-w-2xl format format-sm sm:format-base lg:format-lg format-blue format-invert"
-      >
-        <header class="mb-4 lg:mb-6 not-format">
-          <address class="flex items-center mb-6 not-italic">
-            <div
-              class="inline-flex items-center mr-3 text-sm text-white"
-            >
-              <img
-                class="mr-4 w-16 h-16 rounded-full"
-                src="https://jontes.page/images/avatar.webp"
-                alt="Jonatan Holmgren"
-              />
-              <div>
-                <a
-                  href="#"
-                  rel="author"
-                  class="text-xl font-bold text-white"
-                  >Jonatan Holmgren</a
-                >
-                <p
-                  class="text-base font-light text-gray-400"
-                >
-                  Enthusiastic opensourcer at V3XLabs
-                </p>
-                <p
-                  class="text-base font-light text-gray-400"
-                >
-                  <time datetime="2022-02-08" title="February 8th, 2022"
-                    >{date}</time>
-                </p>
+    <div class="flex justify-between px-4 mx-auto max-w-screen-xl flex-col">
+      <div class="mx-auto w-full max-w-2xl">
+        <article
+          class="format format-sm sm:format-base lg:format-lg format-blue format-invert mb-4"
+        >
+          <header class="mb-4 lg:mb-6 not-format">
+            <address class="flex items-center mb-6 not-italic">
+              <div class="inline-flex items-center mr-3 text-sm text-white">
+                <img
+                  class="mr-4 w-16 h-16 rounded-full"
+                  src="https://jontes.page/images/avatar.webp"
+                  alt="Jonatan Holmgren"
+                />
+                <div>
+                  <a href="#" rel="author" class="text-xl font-bold text-white"
+                    >Jonatan Holmgren</a
+                  >
+                  <p class="text-base font-light text-gray-400">
+                    Enthusiastic opensourcer at V3XLabs
+                  </p>
+                  <p class="text-base font-light text-gray-400">
+                    <time datetime="2022-02-08" title="February 8th, 2022"
+                      >{date}</time
+                    >
+                  </p>
+                </div>
               </div>
-            </div>
-          </address>
-          <h1
-            class="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl text-white"
-          >
-            { title }
-          </h1>
-        </header>
-        <slot />
-        <div id="commento"/>
-        <script defer src="https://commento.jontes.page/js/commento.js"></script>
-      </article>
+            </address>
+            <h1
+              class="mb-4 text-3xl font-extrabold leading-tight lg:mb-6 lg:text-4xl text-white"
+            >
+              {title}
+            </h1>
+          </header>
+          <slot />
+        </article>
+        <Comment post={url} client:load />
+      </div>
     </div>
   </main>
 </Layout>

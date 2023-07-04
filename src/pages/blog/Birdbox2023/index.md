@@ -15,7 +15,6 @@ tags: [
 ---
 
 ## Stream's now public
-See this pic? !["A picture of the birdbox"](https://birdbox.jontes.page:4443/capture/birdbox)? If that image loaded, your browser contacted my webserver at home and took that photo directly from my birdbox. Cool, right? At least I think so.
 
 If you want to, feel free to watch this YouTube video I made about the topic: [youtu.be/VMYSum1HH5c](https://www.youtube.com/watch?v=VMYSum1HH5c)
 
