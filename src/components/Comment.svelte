@@ -118,7 +118,7 @@
 </script>
 
 <!-- Comment form -->
-<hr class="rounded" />
+<hr class="rounded mb-1" />
 <h2 class="text-white text-2xl font-bold">Comments</h2>
 {#if !$signedIn}
   <p class="text-white">
@@ -129,14 +129,14 @@
     >
   </p>
 {:else}
-  <form on:submit|preventDefault={submit}>
+  <form on:submit|preventDefault={submit} class="flex">
     <input
       id="text"
       disabled={!$signedIn}
       placeholder="Write a comment!"
-      class="p-2 rounded bg-neutral-800 text-white w-96"
+      class="p-2 rounded bg-neutral-800 text-white w-auto flex-grow mr-1"
     />
-    <button class="p-2 rounded bg-neutral-800 text-white">Comment</button>
+    <button class="p-2 rounded bg-neutral-800 text-white mr-1">Comment</button>
 
     <button
       on:click={() => {
