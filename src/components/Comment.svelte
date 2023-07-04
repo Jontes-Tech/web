@@ -124,7 +124,7 @@
   <p class="text-white">
     <a
       class="hover:underline"
-      href={"https://identity.nt3.me?redirect_uri=http://localhost:3000" +
+      href={"https://identity.nt3.me?redirect_uri=https://jontes.page" +
         encodeURIComponent(post)}>Sign in to post a comment</a
     >
   </p>
