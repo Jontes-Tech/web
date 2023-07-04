@@ -85,12 +85,12 @@
           post: post,
         }),
       });
-      if (!fetched.ok || fetched.status !== 201) {
+      if (fetched.status !== 200) {
         // Remove comment from list
         comments.comments = comments.comments.filter(
           (comment) => comment.id !== newComment.id
         );
-        alert("Failed to send comment");
+        alert("Failed to send comment: "+fetched.statusText);
         return;
       }
     } catch {
