@@ -22,6 +22,7 @@
       const token = urlParams.get("token");
       if (token) {
         localStorage.setItem("supersecrettoken", token);
+        jwt = token;
         window.history.replaceState({}, document.title, post);
         signedIn.set(true);
       }
@@ -45,7 +46,7 @@
   const comments: CommentResponse = {
     comments: [],
   };
-  const jwt = localStorage.getItem("supersecrettoken");
+  let jwt = localStorage.getItem("supersecrettoken");
   let jwtData:any = {};
   if (jwt) {
     jwtData = JSON.parse(
@@ -55,9 +56,12 @@
   const submit = async () => {
     // Now JWT must exist.
     const text = document.getElementById("text") as HTMLInputElement;
-
+    jwt = localStorage.getItem("supersecrettoken") || "a.b.c";
+    jwtData = JSON.parse(
+      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
+    ); 
     const newComment = {
-      userName: jwtData.name,
+      userName: jwtData.displayName,
       text: text.value,
       created: new Date().getTime(),
       post: post,
