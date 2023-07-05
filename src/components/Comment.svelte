@@ -1,7 +1,6 @@
 <script lang="ts">
   export let post: string;
   import { onMount } from "svelte";
-  import { comment } from "svelte/internal";
   import { writable } from "svelte/store";
   const signedIn = writable(false);
   onMount(async () => {
@@ -46,30 +45,24 @@
   const comments: CommentResponse = {
     comments: [],
   };
-  const submit = async () => {
-    const jwt = localStorage.getItem("supersecrettoken");
-    if (!jwt) {
-      window.location.href =
-        "https://identity.nt3.me?redirect_uri=" +
-        encodeURIComponent(window.location.href);
-      return;
-    }
-    const username = JSON.parse(
+  const jwt = localStorage.getItem("supersecrettoken");
+  let jwtData:any = {};
+  if (jwt) {
+    jwtData = JSON.parse(
       window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
-    ).displayName;
-
+    ); 
+  }
+  const submit = async () => {
     // Now JWT must exist.
     const text = document.getElementById("text") as HTMLInputElement;
 
     const newComment = {
-      userName: username,
+      userName: jwtData.name,
       text: text.value,
       created: new Date().getTime(),
       post: post,
       id: Math.random().toString(),
-      userIsAdmin: JSON.parse(
-        window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
-      ).admin,
+      userIsAdmin: jwtData.admin,
     };
 
     comments.comments = [newComment, ...comments.comments];
@@ -78,7 +71,7 @@
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: jwt,
+          Authorization: jwt + "",
         },
         body: JSON.stringify({
           text: text.value,
@@ -90,7 +83,7 @@
         comments.comments = comments.comments.filter(
           (comment) => comment.id !== newComment.id
         );
-        alert("Failed to send comment: "+fetched.statusText);
+        alert("Failed to send comment: " + fetched.statusText);
         return;
       }
     } catch {
@@ -103,6 +96,28 @@
 
     text.value = "";
   };
+  async function deleteComment(id: string) {
+    if (confirm("Are you sure you want to delete your comment?"))
+      try {
+        const fetched = await fetch("https://api.jontes.page/comment/" + id, {
+          method: "DELETE",
+          headers: {
+            Authorization: localStorage.getItem("supersecrettoken") + "",
+            "Content-Type": "application/json",
+          },
+        });
+        if (fetched.status !== 200) {
+          alert("Failed to delete comment: " + fetched.statusText);
+          return;
+        }
+      } catch {
+        alert("Failed to delete comment");
+        return;
+      }
+    comments.comments = comments.comments.filter(
+      (comment) => comment.id !== id
+    );
+  }
   const formatDate = (date: number) => {
     const now = new Date().getTime();
     const diff = now - date;
@@ -134,23 +149,23 @@
       id="text"
       disabled={!$signedIn}
       placeholder="Write a comment!"
-      class="p-2 rounded bg-neutral-800 text-white w-auto flex-grow mr-1"
+      class="p-2 bg-neutral-800 text-white w-auto flex-grow mr-1"
     />
-    <button class="p-2 rounded bg-neutral-800 text-white mr-1">Comment</button>
+    <button class="p-2 bg-neutral-800 text-white mr-1">Comment</button>
 
     <button
       on:click={() => {
         localStorage.removeItem("supersecrettoken");
         signedIn.set(false);
       }}
-      class="text-white bg-neutral-800 p-2 rounded">Log out</button
+      class="text-white bg-neutral-800 p-2">Log out</button
     >
   </form>
 {/if}
 <!-- Comment section -->
 <ul>
   {#each comments.comments as comment (comment.id)}
-    <li class="bg-neutral-800 p-4 my-2 flex flex-row">
+    <li class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay">
       <p class="text-gray-200">
         <span class="font-bold">{comment.userName}: </span>{comment.text}
       </p>
@@ -158,6 +173,14 @@
         {formatDate(new Date(comment.created).getTime())}
         {#if comment.userIsAdmin}
           <span class="text-red-500"> (Admin)</span>
+        {/if}
+        {#if comment.userName === jwtData.displayName}
+        <button
+          on:click={() => {
+            deleteComment(comment.id);
+          }}
+          class="bg-neutral-700">X</button
+        >
         {/if}
       </p>
     </li>
