@@ -28,46 +28,14 @@ const { title, description, og } = Astro.props;
     <!-- OG image -->
     <meta property="og:image" content={"/images/ogp/" + og + ".png"} />
   </head>
-  <body class="bg-zinc-900 flex flex-col h-screen">
-    <a
-      id="sticky-banner"
-      tabindex="-1"
-      href="/Birdbox2023/?utm_source=homepage&utm_medium=website&utm_campaign=banner"
-      class="z-50 flex justify-between w-full p-4 border-b bg-neutral-900 hover:bg-neutral-800 transition-all border-gray-600"
-    >
-      <div class="flex items-center mx-auto">
-        <p class="flex items-center text-sm font-normal text-gray-400">
-          <span id="bannertext"
-            >Birdbox Stream Over, Birds Moved!</span
-          >
-        </p>
-      </div>
-    </a>
-    <nav class="border-stone-200 px-2 sm:px-4 py-2.5 rounded bg-zinc-800">
-      <div
-        class="container flex flex-wrap items-center justify-between mx-auto"
-      >
-        <span
-          class="self-center text-xl font-semibold whitespace-nowrap text-white mr-4"
-          >Jonte's Page</span
-        >
-        <div class="w-auto" id="navbar-default">
-          <ul
-            class="flex p-4 rounded-lg flex-row space-x-8 mt-0 text-sm font-medium border-0 bg-stone-900 border-stone-700"
-          >
-            <li>
-              <a
-                href="/"
-                class="block px-2 text-violet-400 rounded md:p-0"
-                aria-current="page">Home</a
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+  <body class="bg-neutral-900 flex flex-col h-screen">
     <div class="flex-1">
       <slot />
     </div>
+    <footer class="text-gray-300 py-4 w-screen mx-auto">
+      <div class="mx-10 bg-neutral-800 p-4 rounded-lg">
+        <p>Jonatan Holmgren - Software Engineer @ V3X Labs</p>
+      </div>
+    </footer>
   </body>
 </html>
