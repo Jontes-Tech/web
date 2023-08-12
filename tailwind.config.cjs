@@ -11,6 +11,6 @@ module.exports = {
 		},
 	},
 	plugins: [
-		require('flowbite-typography'),
+		require('@tailwindcss/typography'),
 	  ],
 }

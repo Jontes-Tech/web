@@ -11,9 +11,7 @@ import Comment from "../components/Comment.svelte";
   <main class="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-neutral-900">
     <div class="flex justify-between px-4 mx-auto max-w-screen-xl flex-col">
       <div class="mx-auto w-full max-w-2xl">
-        <article
-          class="format format-sm sm:format-base lg:format-lg format-blue format-invert mb-4"
-        >
+        <article>
           <header class="mb-4 lg:mb-6 not-format">
             <address class="flex items-center mb-6 not-italic">
               <div class="inline-flex items-center mr-3 text-sm text-white">
@@ -43,7 +41,9 @@ import Comment from "../components/Comment.svelte";
               {title}
             </h1>
           </header>
-          <slot />
+          <div class="prose prose-invert prose-violet prose-a:text-violet-400 max-w-none lg:prose-lg sm:prose-sm xl:prose-xl 2xl:prose-2xl">
+            <slot />
+          </div>
         </article>
         <Comment post={url} client:load />
       </div>

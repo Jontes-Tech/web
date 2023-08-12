@@ -1,13 +1,13 @@
 {
     "redirects": [
       {
-        "source": "/kpbird",
-        "destination": "https://jontes.page/Birdbox2023?utm_source=kp&utm_medium=kp&utm_campaign=klotter&normie=true",
-        "permanent": true
-      },
-      {
         "source": "/live",
         "destination": "https://jontes.page/Birdbox2023",
+        "permanent": false
+      },
+      {
+        "source": "/blog/Birdbox2023-Redirect",
+        "destination": "/Birdbox2023",
         "permanent": false
       }
     ]
