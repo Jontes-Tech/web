@@ -161,7 +161,7 @@
     <a
       class="hover:underline"
       href={"https://identity.nt3.me?redirect=https://jontes.page" +
-        encodeURIComponent(post)}>Sign in with NT3 to post a comment</a
+        encodeURIComponent(post)}>Easily sign in/up to post!</a
     >
   </p>
 {:else}
