@@ -15,6 +15,23 @@
       comments.comments = thosecomments;
     }
     if (localStorage.getItem("supersecrettoken")) {
+      const token = localStorage.getItem("supersecrettoken") || "";
+      // Check the expiration date
+      const jwtData = JSON.parse(
+        window.atob(token.split(".")[1].replace("-", "+").replace("_", "/"))
+      );
+      if (jwtData.exp < new Date().getTime() / 1000) {
+        localStorage.removeItem("supersecrettoken");
+        const urlParams = new URLSearchParams(window.location.search);
+        const token = urlParams.get("token");
+        if (token) {
+          localStorage.setItem("supersecrettoken", token);
+          jwt = token;
+          window.history.replaceState({}, document.title, post);
+          signedIn.set(true);
+        }
+        return;
+      }
       signedIn.set(true);
     } else {
       // Check for url parameter "token"
@@ -47,11 +64,11 @@
     comments: [],
   };
   let jwt = localStorage.getItem("supersecrettoken");
-  let jwtData:any = {};
+  let jwtData: any = {};
   if (jwt) {
     jwtData = JSON.parse(
       window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
-    ); 
+    );
   }
   const submit = async () => {
     // Now JWT must exist.
@@ -59,7 +76,7 @@
     jwt = localStorage.getItem("supersecrettoken") || "a.b.c";
     jwtData = JSON.parse(
       window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
-    ); 
+    );
     const newComment = {
       userName: jwtData.displayName,
       text: text.value,
@@ -169,7 +186,9 @@
 <!-- Comment section -->
 <ul>
   {#each comments.comments as comment (comment.id)}
-    <li class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay">
+    <li
+      class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay"
+    >
       <p class="text-gray-200">
         <span class="font-bold">{comment.userName}: </span>{comment.text}
       </p>
@@ -179,12 +198,12 @@
           <span class="text-red-500"> (Admin)</span>
         {/if}
         {#if comment.userName === jwtData.displayName}
-        <button
-          on:click={() => {
-            deleteComment(comment.id);
-          }}
-          class="bg-neutral-700">X</button
-        >
+          <button
+            on:click={() => {
+              deleteComment(comment.id);
+            }}
+            class="bg-neutral-700">X</button
+          >
         {/if}
       </p>
     </li>
