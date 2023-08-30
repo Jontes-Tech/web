@@ -1,6 +1,5 @@
 ---
-import type { stop_propagation } from "svelte/internal";
-
+import { ViewTransitions } from 'astro:transitions';
 export interface Props {
   title: string;
   description: string;
@@ -14,6 +13,7 @@ const { title, description, og } = Astro.props;
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <ViewTransitions/>
     <script
       defer
       data-domain="jontes.page"
@@ -32,9 +32,12 @@ const { title, description, og } = Astro.props;
     <div class="flex-1">
       <slot />
     </div>
-    <footer class="text-gray-300 py-4 w-screen mx-auto">
+    <footer class="text-gray-300 py-4 w-[100%] mx-auto">
       <div class="mx-10 bg-neutral-800 p-4 rounded-lg">
-        <p>Jonatan Holmgren - Software Engineer @ V3X Labs - <a href="/index.xml">Get my RSS</a></p>
+        <p>
+          Jonatan Holmgren - Software Engineer @ V3X Labs - <a href="/index.xml"
+            >Get my RSS</a>
+        </p>
       </div>
     </footer>
   </body>

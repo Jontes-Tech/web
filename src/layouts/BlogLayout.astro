@@ -41,11 +41,13 @@ import Comment from "../components/Comment.svelte";
               {title}
             </h1>
           </header>
-          <div class="prose prose-invert prose-violet prose-a:text-violet-400 max-w-none lg:prose-lg sm:prose-sm xl:prose-xl 2xl:prose-2xl">
+          <div
+            class="prose prose-invert prose-violet prose-a:text-violet-400 max-w-none lg:prose-lg sm:prose-sm xl:prose-xl 2xl:prose-2xl"
+          >
             <slot />
           </div>
         </article>
-        <Comment post={url} client:load />
+        <Comment post={url} client:only />
       </div>
     </div>
   </main>

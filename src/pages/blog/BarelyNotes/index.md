@@ -4,7 +4,6 @@ layout: "../../../layouts/BlogLayout.astro"
 title: "BarelyNotes, a notes tool that doesn't suck"
 date: "2023-05-27"
 description: "Ever wanted to take some notes, but didn't want to use a clunky notes app?"
-cover: "/"
 categories: [
     "Software"
 ]
