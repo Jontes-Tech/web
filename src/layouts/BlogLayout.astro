@@ -5,6 +5,24 @@ const {
 } = Astro.props;
 const { url } = Astro.props;
 import Comment from "../components/Comment.svelte";
+
+const schema = JSON.stringify({
+    '@context': 'https://schema.org/',
+    '@type': 'Article',
+    '@id': 'https://jontes.page' + url,
+    mainEntityOfPage: 'https://jontes.page' + url,
+    headline: title,
+    name: title,
+    description: description,
+    image: cover,
+    url: 'https://jontes.page' + url,
+    author: {
+        '@type': 'Person',
+        '@id': 'https://jontes.page',
+        name: 'Jonatan Holmgren',
+        url: 'https://jontes.page',
+    },
+});
 ---
 
 <Layout title={title} description={description} og={cover}>
@@ -51,4 +69,5 @@ import Comment from "../components/Comment.svelte";
       </div>
     </div>
   </main>
+  <script type="application/ld+json" set:html={schema}/>
 </Layout>
