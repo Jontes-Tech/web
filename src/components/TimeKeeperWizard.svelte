@@ -280,6 +280,13 @@
     <br />
     bör du välja "Fix now", hitta NTFY i listan och välja "Don't optimize". Gå sedan tillbaka till NTFY, och klicka "Enable now" på nästa varning.
   </p>
+  <h2 class="mt-4 text-2xl text-white">
+    Den enkla metoden
+  </h2>
+  <p class="text-neutral-200">Klicka nu <a class="text-blue-200" href={"ntfy://ntfy.nt3.me/"+$selectedClass}>HÄR</a> för att lägga till din klass, och kom sedan tillbaka till denna webbsida. Klicka till sist <a class="text-blue-200" href={"ntfy://ntfy.nt3.me/"+$selectedLanguage}>HÄR</a> för att lägga till din språkgrupp. Om allt gick väl är du klar nu, annars bör du pröva den manuella metoden.</p>
+  <h2 class="mt-4 text-2xl text-white">
+    Den manuella metoden
+  </h2>
   <p class="text-neutral-200">
     Klicka på plusset i appen. Skriv in <code class="p-1 bg-neutral-700 text-white rounded"
       >{$selectedClass}</code
