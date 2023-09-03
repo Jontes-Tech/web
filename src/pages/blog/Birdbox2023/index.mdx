@@ -3,7 +3,6 @@ author: "Jonatan Holmgren"
 layout: "../../../layouts/BlogLayout.astro"
 title: "Birdbox 2023 - Technical Blogpost"
 date: "2023-05-21"
-draft: false
 description: "Yet another, marginally better birdbox, now with 24/7 public live streaming"
 cover: "https://jontes.page/images/birdbox2023/setup.webp"
 categories: [
@@ -13,10 +12,9 @@ tags: [
     "birdbox",
 ]
 ---
+import HeroBirdBox2023 from "../../../components/HeroBirdBox2023.astro"
 
-<a href="/Birdbox2023" className="rounded-lg block p-4 bg-[#37323e] hover:bg-[#45404f] font-bold !text-[#deb841] text-center text-2xl prose-img:max-w-none">
-Birdbox 2023 stream done. See highlights!
-</a>
+<HeroBirdBox2023 />
 
 I decided on building yet another birdbox, only slightly modifying the hardware of the 2021 one.
 

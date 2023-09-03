@@ -17,11 +17,9 @@ import Layout from "../layouts/Layout.astro";
       >
         Greetings, I'm Jonte!
       </h1>
-      <p
-        class="max-w-2xl mb-6 lg:mb-8 md:text-lg lg:text-xl text-neutral-200"
-      >
-        A Young && Curious Open-Source Engineer, fueled by a passion for
-        technology and on a mission to Revolutionize the World. Happy Hacking!
+      <p class="max-w-2xl mb-6 lg:mb-8 md:text-lg lg:text-xl text-neutral-200">
+        A <span id="age" class="cursor-pointer">Young</span> Open-Source
+        Engineer, hoping to make a lasting impact. Happy Hacking!
       </p>
       <a
         href="/blog"
@@ -42,10 +40,52 @@ import Layout from "../layouts/Layout.astro";
     </div>
     <div class="hidden lg:mt-0 lg:col-span-5 lg:flex h-32">
       <img
-        src="/images/avatar.webp"
+        src="/images/pixelart.webp"
         alt="Jonte, an early teenage boy smiling looking into the camera"
-        class="hover:scale-105 transition-transform"
+        class="hover:scale-105 transition-transform bg-neutral-800 rounded-lg w-[256px] h-[256px]"
       />
     </div>
   </section>
 </Layout>
+<script>
+  const elm = document.getElementById("age");
+  if (!elm) throw new Error("Element not found");
+  const age = Math.floor((Date.now() / 1000 - 1233516000) / 31536000);
+  elm.innerText = age.toString() + " year old";
+  elm.addEventListener("mouseover", () => {
+    const age = Math.floor((Date.now() / 1000 - 1233516000) / 31536000);
+    const months = Math.floor(
+      ((Date.now() / 1000 - 1233516000) % 31536000) / 2592000
+    );
+    const days = Math.floor(
+      (((Date.now() / 1000 - 1233516000) % 31536000) % 2592000) / 86400
+    );
+    const hours = Math.floor(
+      ((((Date.now() / 1000 - 1233516000) % 31536000) % 2592000) % 86400) / 3600
+    );
+    const minutes = Math.floor(
+      (((((Date.now() / 1000 - 1233516000) % 31536000) % 2592000) % 86400) %
+        3600) /
+        60
+    );
+    const seconds = Math.floor(
+      ((((((Date.now() / 1000 - 1233516000) % 31536000) % 2592000) % 86400) %
+        3600) %
+        60) /
+        1
+    );
+    elm.title =
+      age.toString() +
+      " years, " +
+      months.toString() +
+      " months, " +
+      days.toString() +
+      " days, " +
+      hours.toString() +
+      " hours, " +
+      minutes.toString() +
+      " minutes, " +
+      seconds.toString() +
+      " seconds old";
+  });
+</script>
