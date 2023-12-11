@@ -11,11 +11,13 @@ const posts = Object.values(postImportResult).sort((a, b) => {
   return bDate.getTime() - aDate.getTime();
 });
 
+const age = Math.floor((Date.now() / 1000 - 1233516000) / 31536000);
+
 export const get = () =>
   rss({
     stylesheet: "/rss/styles.xsl",
     title: "Jonte's Blog",
-    description: "The thoughts of a 14 year old developer",
+    description: `The thoughts of a ${age} year old developer`,
     site: import.meta.env.SITE,
     items: posts.map((post) => ({
       link: post.url,
