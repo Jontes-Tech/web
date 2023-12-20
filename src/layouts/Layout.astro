@@ -1,5 +1,5 @@
 ---
-import { ViewTransitions } from 'astro:transitions';
+import { ViewTransitions } from "astro:transitions";
 export interface Props {
   title: string;
   description: string;
@@ -9,27 +9,31 @@ export interface Props {
 const { title, description, og } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <ViewTransitions/>
+    <ViewTransitions />
     <script
       defer
       data-domain="jontes.page"
-      src="https://stats.jontes.page/js/script.js"
-    ></script>
+      src="https://stats.jontes.page/js/script.js"></script>
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
     <title>{title} | Jonte's Page</title>
     <meta name="description" content={description} />
-    <ViewTransitions/>
+    <ViewTransitions />
     <!-- Webp Favicon -->
     <link rel="icon" type="image/webp" href="/images/avatar.webp" />
     <!-- OG image -->
     <meta property="og:image" content={"/images/ogp/" + og + ".png"} />
   </head>
   <body class="bg-neutral-900 flex flex-col h-screen">
+    <a href="/xmas" class="text-gray-300 py-4 w-[100%] mx-auto">
+      <div class="mx-10 bg-neutral-800 p-4 rounded-lg">
+        <p class="text-xl">Styr pepparkakshusvagnen i Lag Grönt</p>
+      </div>
+    </header>
     <div class="flex-1">
       <slot />
     </div>
@@ -37,7 +41,8 @@ const { title, description, og } = Astro.props;
       <div class="mx-10 bg-neutral-800 p-4 rounded-lg">
         <p>
           Jonatan Holmgren - Software Engineer @ V3X Labs - <a href="/index.xml"
-            >Get my RSS</a>
+            >Get my RSS</a
+          >
         </p>
       </div>
     </footer>
