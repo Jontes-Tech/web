@@ -1,0 +1,26 @@
+---
+import { ViewTransitions } from "astro:transitions";
+export interface Props {
+  title: string;
+  description: string;
+  og: string;
+}
+
+const { title, description, og } = Astro.props;
+---
+
+<meta charset="UTF-8" />
+<ViewTransitions />
+<script
+  defer
+  data-domain="jontes.page"
+  src="https://stats.jontes.page/js/script.js"></script>
+<meta name="viewport" content="width=device-width" />
+<meta name="generator" content={Astro.generator} />
+<title>{title} | Jonte's Page</title>
+<meta name="description" content={description} />
+<ViewTransitions />
+<!-- Webp Favicon -->
+<link rel="icon" type="image/webp" href="/images/avatar.webp" />
+<!-- OG image -->
+<meta property="og:image" content={"/images/ogp/" + og + ".png"} />
