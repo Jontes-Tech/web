@@ -5,12 +5,12 @@
   const signedIn = writable(false);
   onMount(async () => {
     const gotComments = await fetch(
-      "https://api.jontes.page/comments/" + encodeURIComponent(post)
+      "https://api.jontes.page/comments/" + encodeURIComponent(post),
     );
     if (gotComments.ok && gotComments.status === 200) {
       let thosecomments = await gotComments.json();
       thosecomments = thosecomments.sort(
-        (a: any, b: any) => b.created - a.created
+        (a: any, b: any) => b.created - a.created,
       );
       comments.comments = thosecomments;
     }
@@ -18,7 +18,7 @@
       const token = localStorage.getItem("supersecrettoken") || "";
       // Check the expiration date
       const jwtData = JSON.parse(
-        window.atob(token.split(".")[1].replace("-", "+").replace("_", "/"))
+        window.atob(token.split(".")[1].replace("-", "+").replace("_", "/")),
       );
       if (jwtData.exp < new Date().getTime() / 1000) {
         localStorage.removeItem("supersecrettoken");
@@ -67,7 +67,7 @@
   let jwtData: any = {};
   if (jwt) {
     jwtData = JSON.parse(
-      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
+      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
     );
   }
   const submit = async () => {
@@ -75,7 +75,7 @@
     const text = document.getElementById("text") as HTMLInputElement;
     jwt = localStorage.getItem("supersecrettoken") || "a.b.c";
     jwtData = JSON.parse(
-      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/"))
+      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
     );
     const newComment = {
       userName: jwtData.displayName,
@@ -96,20 +96,20 @@
         },
         body: JSON.stringify({
           text: text.value,
-          post: post,
+          post: "https://jontes.page" + post,
         }),
       });
       if (fetched.status !== 200) {
         // Remove comment from list
         comments.comments = comments.comments.filter(
-          (comment) => comment.id !== newComment.id
+          (comment) => comment.id !== newComment.id,
         );
         alert("Failed to send comment: " + fetched.statusText);
         return;
       }
     } catch {
       comments.comments = comments.comments.filter(
-        (comment) => comment.id !== newComment.id
+        (comment) => comment.id !== newComment.id,
       );
       alert("Failed to send comment");
       return;
@@ -136,7 +136,7 @@
         return;
       }
     comments.comments = comments.comments.filter(
-      (comment) => comment.id !== id
+      (comment) => comment.id !== id,
     );
   }
   const formatDate = (date: number) => {
