@@ -5,14 +5,15 @@
   const signedIn = writable(false);
   onMount(async () => {
     const gotComments = await fetch(
-      "https://api.jontes.page/comments/" + encodeURIComponent(post),
+      "https://api.jontes.page/comments/https%3A%2F%2Fjontes.page" +
+        encodeURIComponent(post),
     );
     if (gotComments.ok && gotComments.status === 200) {
       let thosecomments = await gotComments.json();
       thosecomments = thosecomments.sort(
         (a: any, b: any) => b.created - a.created,
       );
-      comments.comments = thosecomments;
+      comments = thosecomments;
     }
     if (localStorage.getItem("supersecrettoken")) {
       const token = localStorage.getItem("supersecrettoken") || "";
@@ -48,21 +49,21 @@
 
   // Comment interface
   interface Comment {
-    userName: string;
+    id: string;
+    authorId: string;
     text: string;
     created: number;
     post: string;
-    id: string;
-    userIsAdmin: boolean;
-  }
-  interface CommentResponse {
-    comments: Comment[];
+    author: {
+      displayName: string;
+      admin: boolean;
+    };
   }
 
+  type CommentResponse = Comment[];
+
   // Sample Comments data, sorted latest first
-  const comments: CommentResponse = {
-    comments: [],
-  };
+  let comments: CommentResponse = [];
   let jwt = localStorage.getItem("supersecrettoken");
   let jwtData: any = {};
   if (jwt) {
@@ -78,15 +79,18 @@
       window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
     );
     const newComment = {
-      userName: jwtData.displayName,
       text: text.value,
       created: new Date().getTime(),
-      post: post,
+      post: "https://jontes.page" + post,
       id: Math.random().toString(),
-      userIsAdmin: jwtData.admin,
+      authorId: jwtData.id,
+      author: {
+        displayName: jwtData.displayName,
+        admin: jwtData.admin,
+      },
     };
 
-    comments.comments = [newComment, ...comments.comments];
+    comments = [newComment, ...comments];
     try {
       const fetched = await fetch("https://api.jontes.page/comments", {
         method: "POST",
@@ -100,17 +104,12 @@
         }),
       });
       if (fetched.status !== 200) {
-        // Remove comment from list
-        comments.comments = comments.comments.filter(
-          (comment) => comment.id !== newComment.id,
-        );
+        comments = comments.filter((comment) => comment.id !== newComment.id);
         alert("Failed to send comment: " + fetched.statusText);
         return;
       }
     } catch {
-      comments.comments = comments.comments.filter(
-        (comment) => comment.id !== newComment.id,
-      );
+      comments = comments.filter((comment) => comment.id !== newComment.id);
       alert("Failed to send comment");
       return;
     }
@@ -135,9 +134,7 @@
         alert("Failed to delete comment");
         return;
       }
-    comments.comments = comments.comments.filter(
-      (comment) => comment.id !== id,
-    );
+    comments = comments.filter((comment) => comment.id !== id);
   }
   const formatDate = (date: number) => {
     const now = new Date().getTime();
@@ -185,19 +182,19 @@
 {/if}
 <!-- Comment section -->
 <ul>
-  {#each comments.comments as comment (comment.id)}
+  {#each comments as comment (comment.id)}
     <li
       class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay"
     >
       <p class="text-gray-200">
-        <span class="font-bold">{comment.userName}: </span>{comment.text}
+        <span class="font-bold">{comment.author.displayName}: </span>{comment.text}
       </p>
       <p class="text-gray-400 ml-auto">
         {formatDate(new Date(comment.created).getTime())}
-        {#if comment.userIsAdmin}
+        {#if comment.author.admin}
           <span class="text-red-500"> (Admin)</span>
         {/if}
-        {#if comment.userName === jwtData.displayName}
+        {#if comment.author.admin === jwtData.displayName}
           <button
             on:click={() => {
               deleteComment(comment.id);
