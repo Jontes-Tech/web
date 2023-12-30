@@ -65,34 +65,30 @@
   // Sample Comments data, sorted latest first
   let comments: CommentResponse = [];
   let jwt = localStorage.getItem("supersecrettoken");
-  let jwtData: any = {};
-  if (jwt) {
-    jwtData = JSON.parse(
-      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
-    );
-  }
-  const submit = async () => {
-    // Now JWT must exist.
-    const text = document.getElementById("text") as HTMLInputElement;
-    jwt = localStorage.getItem("supersecrettoken") || "a.b.c";
-    jwtData = JSON.parse(
-      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
-    );
-    const newComment = {
-      text: text.value,
-      created: new Date().getTime(),
-      post: "https://jontes.page" + post,
-      id: Math.random().toString(),
-      authorId: jwtData.id,
-      author: {
-        displayName: jwtData.displayName,
-        admin: jwtData.admin,
-      },
-    };
+  let jwtData: {
+    id: string;
+    scope: string;
+    displayName: string;
+    admin: boolean;
+    aud: "https://jontes.page";
+    iat: number;
+    exp: number;
+    iss: "https://identity.nt3.me";
+  } = jwt ? JSON.parse(
+    window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
+  ) : {};
 
-    comments = [newComment, ...comments];
+  console.log(jwtData)
+
+  const submit = async () => {
+    const text = document.getElementById("text") as HTMLInputElement;
+    jwt = localStorage.getItem("supersecrettoken") || "a.b.c" // ("We really gotta hope this doesn't happen");
+    jwtData = JSON.parse(
+      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
+    );
+
     try {
-      const fetched = await fetch("https://api.jontes.page/comments", {
+      const postreq = await fetch("https://api.jontes.page/comments", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,13 +99,21 @@
           post: "https://jontes.page" + post,
         }),
       });
-      if (fetched.status !== 200) {
-        comments = comments.filter((comment) => comment.id !== newComment.id);
-        alert("Failed to send comment: " + fetched.statusText);
+      if (postreq.status !== 200) {
+        alert("Failed to send comment: " + postreq.statusText);
         return;
       }
+      const getreq = await fetch(
+        "https://api.jontes.page/comments/https%3A%2F%2Fjontes.page" +
+          encodeURIComponent(post),
+        {
+          cache: "reload",
+        }
+      );
+      getreq && getreq.ok && getreq.status === 200
+        ? (comments = await getreq.json())
+        : alert("Failed to get comments: " + getreq.statusText);
     } catch {
-      comments = comments.filter((comment) => comment.id !== newComment.id);
       alert("Failed to send comment");
       return;
     }
@@ -187,14 +191,16 @@
       class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay"
     >
       <p class="text-gray-200">
-        <span class="font-bold">{comment.author.displayName}: </span>{comment.text}
+        <span class="font-bold"
+          >{comment.author.displayName}:
+        </span>{comment.text}
       </p>
       <p class="text-gray-400 ml-auto">
         {formatDate(new Date(comment.created).getTime())}
         {#if comment.author.admin}
           <span class="text-red-500"> (Admin)</span>
         {/if}
-        {#if comment.author.admin === jwtData.displayName}
+        {#if comment.authorId === jwtData?.id || jwtData?.admin}
           <button
             on:click={() => {
               deleteComment(comment.id);
