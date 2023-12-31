@@ -13,6 +13,12 @@
       admin: boolean;
     };
   }
+  interface JWTData {
+    id: string;
+    admin: boolean;
+    exp: number;
+    displayName: string;
+  }
 
   let comments = writable<Comment[]>([]);
 
@@ -29,37 +35,41 @@
   validateComments();
 
   const getJWTData = () => {
+    const dummy:JWTData = {
+      id: "",
+      admin: false,
+      exp: 0,
+      displayName: "",
+    };
     const jwt = localStorage.getItem("supersecrettoken");
-    let jwtData: {
-      id: string;
-      admin: boolean;
-      exp: number;
-      displayName: string;
-    } = jwt
+    let jwtData:JWTData = jwt
       ? JSON.parse(
           window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
         )
       : {};
-    if (jwt) {
-      signedIn.set(true);
-      return jwtData;
-    } else if (jwtData.exp < new Date().getTime() / 1000) {
-      localStorage.removeItem("supersecrettoken");
-      signedIn.set(false);
-    } else if (new URLSearchParams(window.location.search).get("token")) {
+    // If query param ?token is set, use that instead
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get("token");
+    if (token) {
+      // We'll assume noone provides an expired token, so we don't check it
+      localStorage.setItem("supersecrettoken", token);
+      window.location.href = window.location.href.split("?")[0];
       jwtData = JSON.parse(
-        window.atob(
-          new URLSearchParams(window.location.search).get("token") ||
-            "".split(".")[1].replace("-", "+").replace("_", "/"),
-        ),
+        window.atob(token.split(".")[1].replace("-", "+").replace("_", "/")),
       );
-      localStorage.setItem(
-        "supersecrettoken",
-        new URLSearchParams(window.location.search).get("token") || "",
-      );
-      signedIn.set(true);
     }
 
+    if (!jwt && !token) {
+      signedIn.set(false);
+      return dummy;
+    }
+
+    if (jwtData.exp < new Date().getTime() / 1000) {
+      localStorage.removeItem("supersecrettoken");
+      signedIn.set(false);
+      return dummy;
+    }
+    signedIn.set(true);
     return jwtData;
   };
 
@@ -111,7 +121,7 @@
           },
           body: JSON.stringify({
             text,
-            post,
+            post: "https://jontes.page" + post,
           }),
         });
         if (res.status == 200) {
@@ -127,14 +137,16 @@
               author: {
                 displayName: jwtData.displayName,
                 admin: jwtData.admin,
-              }
+              },
             },
             ...get(comments),
           ]);
-          // We don't actually care about the response, we just want to update the comments in our cache
-          await fetch("https://api.jontes.page/comments/"+encodeURIComponent(post), {
-            cache: "no-cache",
-          });
+          await fetch(
+            "https://api.jontes.page/comments/" + encodeURIComponent(post),
+            {
+              cache: "no-cache",
+            },
+          );
         } else {
           alert("Error: " + (await res.text()));
         }
