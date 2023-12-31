@@ -35,9 +35,6 @@ dependencies:
   svelte:
     specifier: ^3.59.1
     version: 3.59.1
-  svelte-material-color-picker:
-    specifier: ^0.0.3
-    version: 0.0.3(svelte@3.59.1)(typescript@4.9.5)
   tailwindcss:
     specifier: ^3.2.4
     version: 3.2.4(postcss@8.4.32)
@@ -46,9 +43,6 @@ devDependencies:
   '@tailwindcss/typography':
     specifier: ^0.5.9
     version: 0.5.9(tailwindcss@3.2.4)
-  svelte-awesome-color-picker:
-    specifier: 3.0.0-beta.9
-    version: 3.0.0-beta.9(svelte@3.59.1)
 
 packages:
 
@@ -1667,10 +1661,6 @@ packages:
       color-string: 1.9.1
     dev: false
     optional: true
-
-  /colord@2.9.3:
-    resolution: {integrity: sha512-jeC1axXpnb0/2nn/Y1LPuLdgXBLH7aDcHu4KEKfqw3CUhX7ZpfBSlPKyqXE6btIgEzfWtrX3/tyBCaCvXvMkOw==}
-    dev: true
 
   /comma-separated-tokens@2.0.3:
     resolution: {integrity: sha512-Fu4hJdvzeylCfQPp9SGWidpzrMs7tTrlu6Vb8XGaRGck8QSNZJJp538Wrb60Lax4fPwR64ViY468OIUTbRlGZg==}
@@ -4685,24 +4675,6 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
 
-  /svelte-awesome-color-picker@3.0.0-beta.9(svelte@3.59.1):
-    resolution: {integrity: sha512-84LOWIr6zejAL5ZfGpeehCw/YMtZqXTpfeHxwPFHS0tNwIT3nbFQoZqtAndtQs78aBMqztrHHNGvGoKspccV6g==}
-    peerDependencies:
-      svelte: ^3.55.1 || ^4.0.0
-    dependencies:
-      colord: 2.9.3
-      svelte: 3.59.1
-      svelte-awesome-slider: 0.0.9(svelte@3.59.1)
-    dev: true
-
-  /svelte-awesome-slider@0.0.9(svelte@3.59.1):
-    resolution: {integrity: sha512-T4Pahaith5ZoPk5gXtQKddQroNChPIRnD/Q83cyDry/YOo/3RAcNhss8JBJz7rteA44KFdsLJ9L4GsnfTBuKyA==}
-    peerDependencies:
-      svelte: ^3.54.0 || ^4.0.0
-    dependencies:
-      svelte: 3.59.1
-    dev: true
-
   /svelte-hmr@0.15.3(svelte@3.59.1):
     resolution: {integrity: sha512-41snaPswvSf8TJUhlkoJBekRrABDXDMdpNpT2tfHIv4JuhgvHqLMhEPGtaQn0BmbNSTkuz2Ed20DF2eHw0SmBQ==}
     engines: {node: ^12.20 || ^14.13.1 || >= 16}
@@ -4710,27 +4682,6 @@ packages:
       svelte: ^3.19.0 || ^4.0.0
     dependencies:
       svelte: 3.59.1
-    dev: false
-
-  /svelte-material-color-picker@0.0.3(svelte@3.59.1)(typescript@4.9.5):
-    resolution: {integrity: sha512-2eDE5SEndozHqt+H3zIrc3GBz2EnUJgbMi/sXBx96DDc4X0shAq75tsnYRYv5Vj2eg/2UwHqBvUFZHffz/ybDQ==}
-    dependencies:
-      svelte2tsx: 0.5.23(svelte@3.59.1)(typescript@4.9.5)
-    transitivePeerDependencies:
-      - svelte
-      - typescript
-    dev: false
-
-  /svelte2tsx@0.5.23(svelte@3.59.1)(typescript@4.9.5):
-    resolution: {integrity: sha512-jYFnugTQRFmUpvLXPQrKzVYcW5ErT+0QCxg027Zx9BuvYefMZFuoBSTDYe7viPEFGrPPiLgT2m7f5n9khE7f7Q==}
-    peerDependencies:
-      svelte: ^3.24
-      typescript: ^4.1.2
-    dependencies:
-      dedent-js: 1.0.1
-      pascal-case: 3.1.2
-      svelte: 3.59.1
-      typescript: 4.9.5
     dev: false
 
   /svelte2tsx@0.6.21(svelte@3.59.1)(typescript@4.9.5):
@@ -4753,6 +4704,7 @@ packages:
   /svelte@3.59.1:
     resolution: {integrity: sha512-pKj8fEBmqf6mq3/NfrB9SLtcJcUvjYSWyePlfCqN9gujLB25RitWK8PvFzlwim6hD/We35KbPlRteuA6rnPGcQ==}
     engines: {node: '>= 8'}
+    dev: false
 
   /tailwindcss@3.2.4(postcss@8.4.32):
     resolution: {integrity: sha512-AhwtHCKMtR71JgeYDaswmZXhPcW9iuI9Sp2LvZPo9upDZ7231ZJ7eA9RaURbhpXGVlrjX4cFNlB4ieTetEb7hQ==}

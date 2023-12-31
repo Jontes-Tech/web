@@ -1,53 +1,7 @@
 <script lang="ts">
   export let post: string;
-  import { onMount } from "svelte";
-  import { writable } from "svelte/store";
+  import { get, writable } from "svelte/store";
   const signedIn = writable(false);
-  onMount(async () => {
-    const gotComments = await fetch(
-      "https://api.jontes.page/comments/https%3A%2F%2Fjontes.page" +
-        encodeURIComponent(post),
-    );
-    if (gotComments.ok && gotComments.status === 200) {
-      let thosecomments = await gotComments.json();
-      thosecomments = thosecomments.sort(
-        (a: any, b: any) => b.created - a.created,
-      );
-      comments = thosecomments;
-    }
-    if (localStorage.getItem("supersecrettoken")) {
-      const token = localStorage.getItem("supersecrettoken") || "";
-      // Check the expiration date
-      const jwtData = JSON.parse(
-        window.atob(token.split(".")[1].replace("-", "+").replace("_", "/")),
-      );
-      if (jwtData.exp < new Date().getTime() / 1000) {
-        localStorage.removeItem("supersecrettoken");
-        const urlParams = new URLSearchParams(window.location.search);
-        const token = urlParams.get("token");
-        if (token) {
-          localStorage.setItem("supersecrettoken", token);
-          jwt = token;
-          window.history.replaceState({}, document.title, post);
-          signedIn.set(true);
-        }
-        return;
-      }
-      signedIn.set(true);
-    } else {
-      // Check for url parameter "token"
-      const urlParams = new URLSearchParams(window.location.search);
-      const token = urlParams.get("token");
-      if (token) {
-        localStorage.setItem("supersecrettoken", token);
-        jwt = token;
-        window.history.replaceState({}, document.title, post);
-        signedIn.set(true);
-      }
-    }
-  });
-
-  // Comment interface
   interface Comment {
     id: string;
     authorId: string;
@@ -60,86 +14,57 @@
     };
   }
 
-  type CommentResponse = Comment[];
+  let comments = writable<Comment[]>([]);
 
-  // Sample Comments data, sorted latest first
-  let comments: CommentResponse = [];
-  let jwt = localStorage.getItem("supersecrettoken");
-  let jwtData: {
-    id: string;
-    scope: string;
-    displayName: string;
-    admin: boolean;
-    aud: "https://jontes.page";
-    iat: number;
-    exp: number;
-    iss: "https://identity.nt3.me";
-  } = jwt ? JSON.parse(
-    window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
-  ) : {};
-
-  console.log(jwtData)
-
-  const submit = async () => {
-    const text = document.getElementById("text") as HTMLInputElement;
-    jwt = localStorage.getItem("supersecrettoken") || "a.b.c" // ("We really gotta hope this doesn't happen");
-    jwtData = JSON.parse(
-      window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
+  const validateComments = async () => {
+    const res = await fetch(
+      "https://api.jontes.page/comments/" + encodeURIComponent(post),
+      {
+        cache: "no-cache",
+      },
     );
+    const data: Comment[] = await res.json();
+    comments.set(data);
+  };
+  validateComments();
 
-    try {
-      const postreq = await fetch("https://api.jontes.page/comments", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: jwt + "",
-        },
-        body: JSON.stringify({
-          text: text.value,
-          post: "https://jontes.page" + post,
-        }),
-      });
-      if (postreq.status !== 200) {
-        alert("Failed to send comment: " + postreq.statusText);
-        return;
-      }
-      const getreq = await fetch(
-        "https://api.jontes.page/comments/https%3A%2F%2Fjontes.page" +
-          encodeURIComponent(post),
-        {
-          cache: "reload",
-        }
+  const getJWTData = () => {
+    const jwt = localStorage.getItem("supersecrettoken");
+    let jwtData: {
+      id: string;
+      admin: boolean;
+      exp: number;
+      displayName: string;
+    } = jwt
+      ? JSON.parse(
+          window.atob(jwt.split(".")[1].replace("-", "+").replace("_", "/")),
+        )
+      : {};
+    if (jwt) {
+      signedIn.set(true);
+      return jwtData;
+    } else if (jwtData.exp < new Date().getTime() / 1000) {
+      localStorage.removeItem("supersecrettoken");
+      signedIn.set(false);
+    } else if (new URLSearchParams(window.location.search).get("token")) {
+      jwtData = JSON.parse(
+        window.atob(
+          new URLSearchParams(window.location.search).get("token") ||
+            "".split(".")[1].replace("-", "+").replace("_", "/"),
+        ),
       );
-      getreq && getreq.ok && getreq.status === 200
-        ? (comments = await getreq.json())
-        : alert("Failed to get comments: " + getreq.statusText);
-    } catch {
-      alert("Failed to send comment");
-      return;
+      localStorage.setItem(
+        "supersecrettoken",
+        new URLSearchParams(window.location.search).get("token") || "",
+      );
+      signedIn.set(true);
     }
 
-    text.value = "";
+    return jwtData;
   };
-  async function deleteComment(id: string) {
-    if (confirm("Are you sure you want to delete your comment?"))
-      try {
-        const fetched = await fetch("https://api.jontes.page/comment/" + id, {
-          method: "DELETE",
-          headers: {
-            Authorization: localStorage.getItem("supersecrettoken") + "",
-            "Content-Type": "application/json",
-          },
-        });
-        if (fetched.status !== 200) {
-          alert("Failed to delete comment: " + fetched.statusText);
-          return;
-        }
-      } catch {
-        alert("Failed to delete comment");
-        return;
-      }
-    comments = comments.filter((comment) => comment.id !== id);
-  }
+
+  const jwtData = getJWTData();
+
   const formatDate = (date: number) => {
     const now = new Date().getTime();
     const diff = now - date;
@@ -166,14 +91,56 @@
     >
   </p>
 {:else}
-  <form on:submit|preventDefault={submit} class="flex">
+  <div class="flex">
     <input
       id="text"
       disabled={!$signedIn}
       placeholder="Write a comment!"
       class="p-2 bg-neutral-800 text-white w-auto flex-grow mr-1"
     />
-    <button class="p-2 bg-neutral-800 text-white mr-1">Comment</button>
+    <button
+      on:click|stopPropagation={async () => {
+        // @ts-ignore
+        const text = document.getElementById("text").value + "";
+
+        const res = await fetch("https://api.jontes.page/comments", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("supersecrettoken") || "",
+          },
+          body: JSON.stringify({
+            text,
+            post,
+          }),
+        });
+        if (res.status == 200) {
+          // @ts-ignore
+          document.getElementById("text").value = "";
+          comments.set([
+            {
+              id: Math.random().toString(36).substring(7),
+              authorId: jwtData.id,
+              text: text,
+              created: new Date().getTime(),
+              post: post,
+              author: {
+                displayName: jwtData.displayName,
+                admin: jwtData.admin,
+              }
+            },
+            ...get(comments),
+          ]);
+          // We don't actually care about the response, we just want to update the comments in our cache
+          await fetch("https://api.jontes.page/comments/"+encodeURIComponent(post), {
+            cache: "no-cache",
+          });
+        } else {
+          alert("Error: " + (await res.text()));
+        }
+      }}
+      class="p-2 bg-neutral-800 text-white mr-1">Comment</button
+    >
 
     <button
       on:click={() => {
@@ -182,33 +149,34 @@
       }}
       class="text-white bg-neutral-800 p-2">Log out</button
     >
-  </form>
+  </div>
 {/if}
-<!-- Comment section -->
 <ul>
-  {#each comments as comment (comment.id)}
-    <li
-      class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay"
-    >
-      <p class="text-gray-200">
-        <span class="font-bold"
-          >{comment.author.displayName}:
-        </span>{comment.text}
-      </p>
-      <p class="text-gray-400 ml-auto">
-        {formatDate(new Date(comment.created).getTime())}
-        {#if comment.author.admin}
-          <span class="text-red-500"> (Admin)</span>
-        {/if}
-        {#if comment.authorId === jwtData?.id || jwtData?.admin}
-          <button
-            on:click={() => {
-              deleteComment(comment.id);
-            }}
-            class="bg-neutral-700">X</button
-          >
-        {/if}
-      </p>
-    </li>
-  {/each}
+  {#if $comments}
+    {#each $comments as comment (comment.id)}
+      <li
+        class="p-4 my-2 flex flex-row bg-[url(https://astro.build/assets/noise.webp)] bg-neutral-800 bg-blend-overlay"
+      >
+        <p class="text-gray-200">
+          <span class="font-bold"
+            >{comment.author.displayName}:
+          </span>{comment.text}
+        </p>
+        <p class="text-gray-400 ml-auto">
+          {formatDate(new Date(comment.created).getTime())}
+          {#if comment.author.admin}
+            <span class="text-red-500"> (Admin)</span>
+          {/if}
+          <!-- {#if comment.authorId === jwtData?.id || jwtData?.admin}
+            <button
+              on:click={() => {
+                deleteComment(comment.id);
+              }}
+              class="bg-neutral-700">X</button
+            >
+          {/if} -->
+        </p>
+      </li>
+    {/each}
+  {/if}
 </ul>
