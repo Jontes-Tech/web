@@ -24,7 +24,7 @@
 
   const validateComments = async () => {
     const res = await fetch(
-      "https://api.jontes.page/comments/" + encodeURIComponent(post),
+      "https://api.jontes.page/comments/" + encodeURIComponent("https://jontes.page"+post),
       {
         cache: "no-cache",
       },
