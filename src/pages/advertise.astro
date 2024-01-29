@@ -50,7 +50,7 @@ const sites: Site[] = [
         %SITEDESC% It has %PAGEVIEWS% pageviews monthly.
       </p>
       <a
-        href="https://stats.jontes.page/%SITEDOMAIN%"
+        href="https://science.nt3.me/%SITEDOMAIN%"
         class="bg-blue-400 hover:bg-blue-300 text-black font-bold py-2 px-4 rounded mt-4 inline-block"
       >
         Analytics
@@ -85,7 +85,7 @@ const sites: Site[] = [
       );
       selected.hidden = false;
       const res = await fetch(
-        "https://stats.jontes.page/api/stats/" +
+        "https://science.nt3.me/api/stats/" +
           site.link.replace("https://", "") +
           "/top-stats?period=30d&date=2023-08-12&filters=%7B%7D&with_imported=true"
       );
