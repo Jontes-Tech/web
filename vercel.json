@@ -10,6 +10,8 @@
         "destination": "/Birdbox2023",
         "permanent": false
       }
-    ]
+    ],
+    "$schema": "https://openapi.vercel.sh/vercel.json",
+    "cleanUrls": true
   }
   
