@@ -1,17 +1,22 @@
 {
-    "redirects": [
-      {
-        "source": "/live",
-        "destination": "https://jontes.page/Birdbox2023",
-        "permanent": false
-      },
-      {
-        "source": "/blog/Birdbox2023-Redirect",
-        "destination": "/Birdbox2023",
-        "permanent": false
-      }
-    ],
-    "$schema": "https://openapi.vercel.sh/vercel.json",
-    "cleanUrls": true
-  }
-  
+  "redirects": [
+    {
+      "source": "/live",
+      "destination": "https://jontes.page/Birdbox2023",
+      "permanent": false
+    },
+    {
+      "source": "/blog/Birdbox2023-Redirect",
+      "destination": "/Birdbox2023",
+      "permanent": false
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/talks/settling-for-performance/",
+      "destination": "/talks/settling-for-performance/index.html"
+    }
+  ],
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "cleanUrls": true
+}
