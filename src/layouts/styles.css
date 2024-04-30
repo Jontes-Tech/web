@@ -11,3 +11,19 @@ h1 {
         font-size: 3rem;
     }
 }
+
+/* Now let's add them fonts */
+/* We need BricolageGrotesque_24pt-Regular.ttf */
+/* We need BricolageGrotesque_72pt_Condensed-ExtraBold.ttf */
+
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    src: url("/fonts/BricolageGrotesque_24pt-Regular.woff2") format("woff2");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: 'Bricolage Grotesque';
+    src: url("/fonts/BricolageGrotesque_72pt_Condensed-ExtraBold.woff2") format("woff2");
+    font-weight: 800;
+}
