@@ -17,7 +17,6 @@ export const GET = () => new Response(
 <rss version="2.0">
 <channel>
   <title>Jonte's Blog</title>
-  <stylesheet>https://jontes.page/rss/styles.xsl</stylesheet>
   <description>The thoughts of a ${age} year old developer</description>
   <link>https://jontes.page</link>
   ${posts.map((post:any) => `

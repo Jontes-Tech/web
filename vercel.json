@@ -9,12 +9,15 @@
       "source": "/blog/Birdbox2023-Redirect",
       "destination": "/Birdbox2023",
       "permanent": false
-    }
-  ],
-  "rewrites": [
+    },
     {
-      "source": "/talks/settling-for-performance/",
-      "destination": "/talks/settling-for-performance/index.html"
+      "source": "/talks/settling-for-performance",
+      "destination": "https://youtube.com/watch?v=ILE2TJyU3AE",
+      "permanent": false
+    },
+    {
+      "source": "/pgp",
+      "destination": "/contact"
     }
   ],
   "$schema": "https://openapi.vercel.sh/vercel.json",

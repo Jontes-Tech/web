@@ -2,100 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 ---
 
-<Layout og="404" title="404" description="Wow, you're lost bud!">
-  <div class="block">
-    <div class="center big-text">
-      <span>
-        <a
-          class="blue-gradient-text"
-          href="https://http.cat/404"
-          target="_blank">404</a
-        > Not found!
-      </span>
-      <span class="subtext"
-        >Either you <span class="red-gradient-text">suck</span> at spelling or I
-        <span class="red-gradient-text">messed up</span>!</span
-      >
-    </div>
-    <style>
-      * {
-        box-sizing: border-box;
-      }
-
-      html,
-      body {
-        background: #181618;
-        font-family: "Roboto", sans-serif;
-        font-weight: bolder;
-        color: white;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-      }
-
-      body {
-        width: 100vw;
-        height: 100vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: stretch;
-        align-items: center;
-        padding: 1rem;
-        text-align: center;
-      }
-
-      .center {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-      }
-
-      .big-text {
-        font-size: 5rem;
-      }
-
-      .bottomtext {
-        padding-bottom: 1rem;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .blue-gradient-text {
-        background: -webkit-linear-gradient(
-          92.36deg,
-          #00f0ff -54.44%,
-          #0094ff 101.15%
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .red-gradient-text {
-        background: -webkit-linear-gradient(
-          92.36deg,
-          #ffbb00 -54.44%,
-          #ff0800 101.15%
-        );
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .subtext {
-        font-size: 1.4rem;
-        margin-top: 1rem;
-      }
-
-      a {
-        color: white;
-        text-decoration: none;
-      }
-    </style>
-  </div>
+<Layout title="404" og="" description="">
+    <section class="p-8 w-full">
+        <!-- Remember, we implemented custom styles in styles.css -->
+        <h1 class="font-extrabold mb-4">404</h1>
+        <p class="text-lg">
+            I don't know who's at fault here.
+        </p>
+    </section>
 </Layout>

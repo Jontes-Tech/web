@@ -1,0 +1,13 @@
+h1 {
+    font-size: calc(min(20vw, 20vh)); /* Adjust the font size based on the viewport size */
+    width: 100%; /* Ensure the heading fits within its container */
+    line-height: 0.8;
+    white-space: nowrap; /* Prevent the heading from wrapping onto multiple lines */
+}
+
+/* For screens smaller than 360px */
+@media (max-width: 360px) {
+    h1 {
+        font-size: 3rem;
+    }
+}
